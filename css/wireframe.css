@@ -3385,27 +3385,44 @@ body.xray-active [data-anatomy-level="section"]::before {
 }
 
 @media (max-width: 768px) {
+  .meta-bar-left {
+    display: none;
+  }
   .meta-bar-inner {
-    padding: 8px 12px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    padding: 7px 12px;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
   }
   .meta-bar-controls {
     width: 100%;
     max-width: 100%;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-shrink: 1;
-    white-space: normal;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     gap: 6px;
+    padding-right: 16px;
+    -webkit-mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+  }
+  .meta-bar-controls::-webkit-scrollbar {
+    display: none;
   }
   .meta-btn {
-    padding: 4px 8px;
-    font-size: 10.5px;
+    padding: 4px 9px;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .lang-switch {
+    flex-shrink: 0;
   }
   .lang-btn {
     padding: 3px 8px;
-    font-size: 10.5px;
+    font-size: 11px;
   }
   .vp-switch {
     display: none !important;
