@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Tokens — Lo-Fi Wireframe Architecture</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--wf-font-sans);
+      font-size: var(--wf-text-body);
+      line-height: var(--wf-leading-normal);
+      color: var(--wf-ink-primary);
+      background-color: var(--wf-bg-canvas);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sticky Top Spec Bar */
+    .spec-topbar {
+      position: sticky;
+      top: 0;
+      z-index: var(--wf-z-sticky);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+    }
+
+    .spec-topbar-inner {
+      max-width: var(--wf-container-max);
+      margin: 0 auto;
+      padding: var(--wf-space-3) var(--wf-container-px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--wf-space-4);
+    }
+
+    .spec-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--wf-space-3);
+    }
+
+    .spec-logo {
+      width: 26px;
+      height: 26px;
+      border: var(--wf-stroke-medium) solid var(--wf-border-strong);
+      border-radius: var(--wf-radius-sm);
+      display: grid;
+      place-items: center;
+      font-family: var(--wf-font-mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .spec-brand-title {
+      font-size: var(--wf-text-sm);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .spec-brand-sub {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-tertiary);
+      margin-left: var(--wf-space-2);
+    }
+
+    .spec-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--wf-space-3);
+    }
+
+    /* X-Ray Toggle Switch */
+    .xray-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--wf-space-2);
+      padding: 6px 12px;
+      border-radius: var(--wf-radius-pill);
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      background: var(--wf-bg-canvas);
+      color: var(--wf-ink-primary);
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--wf-transition-fast);
+    }
+
+    .xray-toggle:hover {
+      border-color: var(--wf-accent);
+      color: var(--wf-accent);
+    }
+
+    .xray-toggle[aria-pressed="true"] {
+      background: var(--wf-accent);
+      border-color: var(--wf-accent);
+      color: var(--wf-ink-inverse);
+    }
+
+    .xray-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--wf-border-default);
+      transition: background var(--wf-transition-fast);
+    }
+
+    .xray-toggle[aria-pressed="true"] .xray-dot {
+      background: var(--wf-ink-inverse);
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: var(--wf-container-max);
+      margin: 0 auto;
+      padding: 0 var(--wf-container-px);
+    }
+
+    .page-header {
+      padding: var(--wf-space-12) 0 var(--wf-space-10);
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      background-image: var(--wf-pattern-dots);
+      background-size: 20px 20px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--wf-space-2);
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: var(--wf-tracking-wide);
+      color: var(--wf-ink-secondary);
+      margin-bottom: var(--wf-space-3);
+    }
+
+    .page-header h1 {
+      font-size: var(--wf-text-display);
+      line-height: var(--wf-leading-tight);
+      letter-spacing: var(--wf-tracking-tight);
+      font-weight: 700;
+      margin-bottom: var(--wf-space-3);
+    }
+
+    .page-header p {
+      font-size: var(--wf-text-lead);
+      color: var(--wf-ink-secondary);
+      max-width: 680px;
+    }
+
+    /* Spec Sections */
+    .token-section {
+      padding: var(--wf-space-12) 0;
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--wf-space-4);
+      margin-bottom: var(--wf-space-6);
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-size: var(--wf-text-h2);
+      letter-spacing: var(--wf-tracking-tight);
+      font-weight: 600;
+    }
+
+    .section-code {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      color: var(--wf-ink-tertiary);
+    }
+
+    /* 1. Color Swatches */
+    .swatch-group-label {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      color: var(--wf-ink-tertiary);
+      text-transform: uppercase;
+      letter-spacing: var(--wf-tracking-wide);
+      margin: var(--wf-space-6) 0 var(--wf-space-3);
+    }
+
+    .swatch-group-label:first-of-type {
+      margin-top: 0;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: var(--wf-space-4);
+    }
+
+    .swatch-card {
+      border: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      border-radius: var(--wf-radius-md);
+      overflow: hidden;
+      background: var(--wf-bg-canvas);
+    }
+
+    .swatch-chip {
+      height: 64px;
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+    }
+
+    .swatch-meta {
+      padding: var(--wf-space-3);
+    }
+
+    .swatch-name {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      font-weight: 600;
+      color: var(--wf-ink-primary);
+      display: block;
+    }
+
+    .swatch-value {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-tertiary);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .swatch-role {
+      font-size: var(--wf-text-xs);
+      color: var(--wf-ink-secondary);
+      margin-top: 6px;
+    }
+
+    /* 2. Typography Scale */
+    .type-table {
+      border: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      border-radius: var(--wf-radius-md);
+      overflow: hidden;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 140px;
+      align-items: center;
+      gap: var(--wf-space-4);
+      padding: var(--wf-space-4) var(--wf-space-5);
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+    }
+
+    .type-row:last-child {
+      border-bottom: none;
+    }
+
+    .type-token {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      color: var(--wf-ink-secondary);
+    }
+
+    .type-spec {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-tertiary);
+      text-align: right;
+    }
+
+    /* 3. Wireframe Primitives */
+    .primitives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--wf-space-5);
+    }
+
+    .primitive-box {
+      border: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      border-radius: var(--wf-radius-md);
+      padding: var(--wf-space-5);
+      background: var(--wf-bg-canvas);
+      display: flex;
+      flex-direction: column;
+      gap: var(--wf-space-4);
+    }
+
+    .primitive-label {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      text-transform: uppercase;
+      letter-spacing: var(--wf-tracking-wide);
+      color: var(--wf-ink-tertiary);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--wf-space-3);
+      align-items: center;
+    }
+
+    .wf-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--wf-space-2);
+      padding: 10px 18px;
+      font-family: var(--wf-font-sans);
+      font-size: var(--wf-text-sm);
+      font-weight: 500;
+      border-radius: var(--wf-radius-sm);
+      cursor: pointer;
+      transition: all var(--wf-transition-fast);
+    }
+
+    .wf-btn-primary {
+      background: var(--wf-ink-primary);
+      color: var(--wf-ink-inverse);
+      border: var(--wf-stroke-medium) solid var(--wf-border-strong);
+    }
+
+    .wf-btn-secondary {
+      background: var(--wf-bg-canvas);
+      color: var(--wf-ink-primary);
+      border: var(--wf-stroke-medium) solid var(--wf-border-default);
+    }
+
+    .wf-btn-ghost {
+      background: transparent;
+      color: var(--wf-ink-secondary);
+      border: var(--wf-stroke-thin) dashed var(--wf-border-default);
+    }
+
+    .wf-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      font-weight: 500;
+      border-radius: var(--wf-radius-pill);
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      background: var(--wf-bg-subtle);
+      color: var(--wf-ink-secondary);
+    }
+
+    .wf-badge-solid {
+      background: var(--wf-ink-primary);
+      border-color: var(--wf-ink-primary);
+      color: var(--wf-ink-inverse);
+    }
+
+    .wf-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      border-radius: var(--wf-radius-sm);
+      font-family: var(--wf-font-sans);
+      font-size: var(--wf-text-sm);
+      background: var(--wf-bg-canvas);
+      color: var(--wf-ink-primary);
+    }
+
+    .wf-input-label {
+      display: block;
+      font-size: var(--wf-text-xs);
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--wf-ink-primary);
+    }
+
+    /* Wireframe Media Placeholder with Cross Lines */
+    .wf-media {
+      position: relative;
+      width: 100%;
+      min-height: 140px;
+      background-color: var(--wf-bg-subtle);
+      background-image: var(--wf-pattern-hatch);
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      border-radius: var(--wf-radius-md);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .wf-media::before,
+    .wf-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .wf-media::before {
+      background: linear-gradient(
+        to top right,
+        transparent calc(50% - 0.6px),
+        var(--wf-border-subtle) calc(50% - 0.6px),
+        var(--wf-border-subtle) calc(50% + 0.6px),
+        transparent calc(50% + 0.6px)
+      );
+    }
+
+    .wf-media::after {
+      background: linear-gradient(
+        to bottom right,
+        transparent calc(50% - 0.6px),
+        var(--wf-border-subtle) calc(50% - 0.6px),
+        var(--wf-border-subtle) calc(50% + 0.6px),
+        transparent calc(50% + 0.6px)
+      );
+    }
+
+    .wf-media-tag {
+      position: relative;
+      z-index: 1;
+      padding: 4px 10px;
+      background: var(--wf-bg-canvas);
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      border-radius: var(--wf-radius-sm);
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-secondary);
+    }
+
+    /* 4. 12-Column Grid Preview */
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--wf-grid-gap);
+      padding: var(--wf-space-4);
+      border: var(--wf-stroke-thin) dashed var(--wf-border-default);
+      border-radius: var(--wf-radius-md);
+      background: var(--wf-bg-subtle);
+    }
+
+    .grid-col {
+      height: 56px;
+      background: var(--wf-bg-surface);
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      border-radius: var(--wf-radius-sm);
+      display: grid;
+      place-items: center;
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-tertiary);
+    }
+
+    /* 5. Live Inspection Sandbox */
+    .sandbox-frame {
+      border: var(--wf-stroke-medium) solid var(--wf-border-strong);
+      border-radius: var(--wf-radius-lg);
+      background: var(--wf-bg-canvas);
+      overflow: hidden;
+    }
+
+    .sandbox-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--wf-bg-subtle);
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      color: var(--wf-ink-tertiary);
+    }
+
+    .chrome-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .chrome-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      background: var(--wf-bg-canvas);
+    }
+
+    .sandbox-body {
+      padding: var(--wf-space-10) var(--wf-space-8);
+    }
+
+    .demo-hero {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--wf-space-8);
+      align-items: center;
+      padding: var(--wf-space-6);
+      border: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      border-radius: var(--wf-radius-md);
+    }
+
+    .demo-hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--wf-space-4);
+    }
+
+    .demo-hero-copy h3 {
+      font-size: var(--wf-text-h1);
+      line-height: var(--wf-leading-tight);
+      letter-spacing: var(--wf-tracking-tight);
+    }
+
+    .demo-hero-copy p {
+      color: var(--wf-ink-secondary);
+      font-size: var(--wf-text-body);
+    }
+
+    /* ========================================================================
+       ANATOMY INSPECTION SYSTEM (Hover + X-Ray + Click)
+       ======================================================================== */
+    [data-anatomy] {
+      position: relative;
+      cursor: pointer;
+      transition: outline-color var(--wf-transition-fast), background-color var(--wf-transition-fast);
+    }
+
+    [data-anatomy]:hover {
+      outline: 1.5px solid var(--wf-accent);
+      outline-offset: 3px;
+    }
+
+    /* X-Ray Mode Active */
+    body.xray-active [data-anatomy] {
+      outline: 1px dashed var(--wf-accent-border);
+      outline-offset: 3px;
+    }
+
+    body.xray-active [data-anatomy]::before {
+      content: attr(data-anatomy);
+      position: absolute;
+      top: -11px;
+      left: 4px;
+      z-index: var(--wf-z-xray);
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: var(--wf-accent);
+      color: var(--wf-ink-inverse);
+      font-family: var(--wf-font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* Selected Element Highlight */
+    [data-anatomy].is-selected {
+      outline: 2px solid var(--wf-accent) !important;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px var(--wf-accent-tint);
+    }
+
+    /* Floating Hover Tooltip */
+    .anatomy-tooltip {
+      position: fixed;
+      z-index: var(--wf-z-tooltip);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 100ms ease, transform 100ms ease;
+      background: var(--wf-ink-primary);
+      color: var(--wf-ink-inverse);
+      padding: 5px 9px;
+      border-radius: var(--wf-radius-sm);
+      font-family: var(--wf-font-mono);
+      font-size: 11px;
+      box-shadow: var(--wf-shadow-tooltip);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .anatomy-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .anatomy-tooltip-cat {
+      color: #93c5fd;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    /* Inspector Drawer */
+    .inspector-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(380px, 92vw);
+      height: 100vh;
+      z-index: var(--wf-z-drawer);
+      background: var(--wf-bg-canvas);
+      border-left: var(--wf-stroke-thin) solid var(--wf-border-default);
+      box-shadow: var(--wf-shadow-drawer);
+      transform: translateX(100%);
+      transition: transform var(--wf-transition-base);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inspector-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-head {
+      padding: var(--wf-space-5);
+      border-bottom: var(--wf-stroke-thin) solid var(--wf-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-title {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--wf-tracking-wide);
+      color: var(--wf-ink-tertiary);
+    }
+
+    .drawer-close {
+      background: transparent;
+      border: var(--wf-stroke-thin) solid var(--wf-border-default);
+      border-radius: var(--wf-radius-sm);
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      font-family: var(--wf-font-mono);
+      color: var(--wf-ink-primary);
+    }
+
+    .drawer-body {
+      padding: var(--wf-space-6) var(--wf-space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--wf-space-5);
+      overflow-y: auto;
+    }
+
+    .drawer-badge {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 3px 8px;
+      border-radius: var(--wf-radius-sm);
+      background: var(--wf-accent-tint);
+      color: var(--wf-accent);
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .drawer-name {
+      font-size: var(--wf-text-h2);
+      font-weight: 700;
+      letter-spacing: var(--wf-tracking-tight);
+    }
+
+    .drawer-block-label {
+      font-family: var(--wf-font-mono);
+      font-size: var(--wf-text-micro);
+      text-transform: uppercase;
+      letter-spacing: var(--wf-tracking-wide);
+      color: var(--wf-ink-tertiary);
+      margin-bottom: var(--wf-space-2);
+    }
+
+    .drawer-desc {
+      font-size: var(--wf-text-sm);
+      color: var(--wf-ink-secondary);
+      line-height: var(--wf-leading-normal);
+    }
+
+    .drawer-tips {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--wf-space-2);
+      font-size: var(--wf-text-sm);
+      color: var(--wf-ink-secondary);
+    }
+
+    .drawer-tips li {
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .drawer-tips li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--wf-accent);
+    }
+
+    @media (max-width: 768px) {
+      .type-row {
+        grid-template-columns: 1fr;
+        gap: var(--wf-space-2);
+      }
+      .type-spec {
+        text-align: left;
+      }
+      .demo-hero {
+        grid-template-columns: 1fr;
+      }
+      .grid-demo {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="spec-topbar">
+    <div class="spec-topbar-inner">
+      <div class="spec-brand">
+        <div class="spec-logo">WF</div>
+        <div>
+          <span class="spec-brand-title">Design Tokens &amp; Wireframe Style</span>
+          <span class="spec-brand-sub">Phase 1 · Lo-Fi Neutral</span>
+        </div>
+      </div>
+      <div class="spec-controls">
+        <button id="xrayToggle" class="xray-toggle" type="button" aria-pressed="false">
+          <span class="xray-dot"></span>
+          X-Ray Mode: OFF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <div class="eyebrow">Design System Foundation · css/tokens.css</div>
+      <h1>Lo-Fi Neutral Wireframe Tokens</h1>
+      <p>
+        Monochrome surfaces, crisp architectural strokes, hatched media placeholders, and a single technical blue accent reserved exclusively for anatomy inspection and X-Ray overlays.
+      </p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- 1. Color & Surface Tokens -->
+    <section class="token-section">
+      <div class="section-head">
+        <h2>01. Color &amp; Surface Tokens</h2>
+        <span class="section-code">Neutrals + Borders + Single Inspection Accent</span>
+      </div>
+
+      <div class="swatch-group-label">Surfaces</div>
+      <div class="swatch-grid">
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-bg-canvas);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-bg-canvas</span>
+            <span class="swatch-value">#FFFFFF</span>
+            <p class="swatch-role">Primary page canvas</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-bg-subtle);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-bg-subtle</span>
+            <span class="swatch-value">#F7F7F8</span>
+            <p class="swatch-role">Alternating section band</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-bg-surface);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-bg-surface</span>
+            <span class="swatch-value">#EFEFF1</span>
+            <p class="swatch-role">Wireframe card / block fill</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-bg-muted);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-bg-muted</span>
+            <span class="swatch-value">#E4E4E7</span>
+            <p class="swatch-role">Skeleton / recessed media</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swatch-group-label">Inks, Strokes &amp; Inspection Accent</div>
+      <div class="swatch-grid">
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-ink-primary);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-ink-primary</span>
+            <span class="swatch-value">#111113</span>
+            <p class="swatch-role">Headings &amp; strong strokes</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-ink-secondary);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-ink-secondary</span>
+            <span class="swatch-value">#52525B</span>
+            <p class="swatch-role">Body copy &amp; descriptions</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-border-default);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-border-default</span>
+            <span class="swatch-value">#C4C4CC</span>
+            <p class="swatch-role">Standard wireframe outline</p>
+          </div>
+        </div>
+        <div class="swatch-card">
+          <div class="swatch-chip" style="background: var(--wf-accent);"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">--wf-accent</span>
+            <span class="swatch-value">#2563EB</span>
+            <p class="swatch-role">Hover / X-Ray / Inspector only</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Typography Scale -->
+    <section class="token-section">
+      <div class="section-head">
+        <h2>02. Typography Scale</h2>
+        <span class="section-code">Inter (Structure) + JetBrains Mono (Anatomy Specs)</span>
+      </div>
+
+      <div class="type-table">
+        <div class="type-row">
+          <span class="type-token">--wf-text-display</span>
+          <span style="font-size: var(--wf-text-display); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em;">Display Heading</span>
+          <span class="type-spec">36–52px / 700</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-h1</span>
+          <span style="font-size: var(--wf-text-h1); font-weight: 700; line-height: 1.15;">H1 Section Heading</span>
+          <span class="type-spec">34px / 700</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-h2</span>
+          <span style="font-size: var(--wf-text-h2); font-weight: 600;">H2 Subsection Title</span>
+          <span class="type-spec">24px / 600</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-h3</span>
+          <span style="font-size: var(--wf-text-h3); font-weight: 600;">H3 Card / Group Heading</span>
+          <span class="type-spec">18px / 600</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-lead</span>
+          <span style="font-size: var(--wf-text-lead); color: var(--wf-ink-secondary);">Lead paragraph / subtitle introducing the main value proposition.</span>
+          <span class="type-spec">17px / 400</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-body</span>
+          <span style="font-size: var(--wf-text-body); color: var(--wf-ink-secondary);">Body copy used for standard descriptions, cards, and editorial paragraphs.</span>
+          <span class="type-spec">15px / 400</span>
+        </div>
+        <div class="type-row">
+          <span class="type-token">--wf-text-micro (Mono)</span>
+          <span style="font-family: var(--wf-font-mono); font-size: var(--wf-text-micro); text-transform: uppercase; letter-spacing: 0.06em; color: var(--wf-ink-tertiary);">EYEBROW · BADGE · ANATOMY LABEL</span>
+          <span class="type-spec">11px / Mono</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Wireframe Primitives -->
+    <section class="token-section">
+      <div class="section-head">
+        <h2>03. Wireframe Primitives</h2>
+        <span class="section-code">Buttons, Badges, Inputs &amp; Hatched Media Placeholders</span>
+      </div>
+
+      <div class="primitives-grid">
+        <div class="primitive-box">
+          <span class="primitive-label">Buttons &amp; Actions</span>
+          <div class="btn-row">
+            <button class="wf-btn wf-btn-primary" type="button">Primary CTA</button>
+            <button class="wf-btn wf-btn-secondary" type="button">Secondary CTA</button>
+            <button class="wf-btn wf-btn-ghost" type="button">Ghost Action</button>
+          </div>
+        </div>
+
+        <div class="primitive-box">
+          <span class="primitive-label">Badges &amp; Tags</span>
+          <div class="btn-row">
+            <span class="wf-badge">Neutral Tag</span>
+            <span class="wf-badge wf-badge-solid">Highlighted Badge</span>
+            <span class="wf-badge" style="border-style: dashed;">Status Pill</span>
+          </div>
+        </div>
+
+        <div class="primitive-box">
+          <span class="primitive-label">Form Input Group</span>
+          <div>
+            <label class="wf-input-label" for="demo-email">Input Label</label>
+            <input id="demo-email" class="wf-input" type="text" placeholder="Placeholder copy..." />
+          </div>
+        </div>
+
+        <div class="primitive-box">
+          <span class="primitive-label">Media Placeholder Texture</span>
+          <div class="wf-media">
+            <span class="wf-media-tag">Media Placeholder · 16:9</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 12-Column Grid System -->
+    <section class="token-section">
+      <div class="section-head">
+        <h2>04. 12-Column Grid &amp; Container</h2>
+        <span class="section-code">--wf-container-max: 1140px · --wf-grid-gap: 20px</span>
+      </div>
+
+      <div class="grid-demo">
+        <div class="grid-col">1</div>
+        <div class="grid-col">2</div>
+        <div class="grid-col">3</div>
+        <div class="grid-col">4</div>
+        <div class="grid-col">5</div>
+        <div class="grid-col">6</div>
+        <div class="grid-col">7</div>
+        <div class="grid-col">8</div>
+        <div class="grid-col">9</div>
+        <div class="grid-col">10</div>
+        <div class="grid-col">11</div>
+        <div class="grid-col">12</div>
+      </div>
+    </section>
+
+    <!-- 5. Live Inspection Sandbox -->
+    <section class="token-section" style="border-bottom: none;">
+      <div class="section-head">
+        <h2>05. Live Inspection Preview (Try Hover, X-Ray &amp; Click)</h2>
+        <span class="section-code">Hover for Tooltip · Click for Inspector Drawer · Toggle X-Ray above</span>
+      </div>
+
+      <div class="sandbox-frame">
+        <div class="sandbox-chrome">
+          <div class="chrome-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span>wireframe-sandbox.local / preview</span>
+          <span>Interactive Anatomy</span>
+        </div>
+        <div class="sandbox-body">
+          <div
+            class="demo-hero"
+            data-anatomy="Split Hero Section"
+            data-category="Section Layout"
+            data-desc="A two-column above-the-fold layout pairing primary messaging and calls-to-action on one side with a prominent visual or product preview on the other."
+            data-tips="Best for SaaS, apps, and product landing pages|Keep copy concise so the CTA stays above the fold|Stacks vertically on mobile viewports"
+          >
+            <div class="demo-hero-copy">
+              <span
+                class="wf-badge"
+                data-anatomy="Eyebrow / Badge"
+                data-category="Typography"
+                data-desc="A short, high-signal label placed above the main headline to establish category, release status, or context."
+                data-tips="Keep to 2–4 words|Use uppercase monospace or subtle pill styling|Never compete visually with the H1"
+              >EYEBROW · NEW RELEASE</span>
+
+              <h3
+                data-anatomy="H1 Heading"
+                data-category="Typography"
+                data-desc="The primary page headline communicating the core value proposition in a single scannable statement."
+                data-tips="Use only one H1 per page for semantic clarity|Aim for 5–10 words maximum|Largest font size and tightest line-height on the page"
+              >H1 Main Headline Goes Here</h3>
+
+              <p
+                data-anatomy="Lead / Subtitle Copy"
+                data-category="Typography"
+                data-desc="A supporting 1–2 sentence summary directly beneath the headline that clarifies who the product is for and what it does."
+                data-tips="Keep line length between 45–65 characters|Use secondary ink color to establish hierarchy"
+              >Lead copy expands on the headline with concise context before asking the visitor to act.</p>
+
+              <div
+                class="btn-row"
+                data-anatomy="CTA Button Group"
+                data-category="Action Pattern"
+                data-desc="A paired set of Primary and Secondary actions guiding users toward the main conversion goal while offering a lower-commitment fallback."
+                data-tips="Limit to one Primary CTA per section|Pair with a Secondary CTA such as 'View Demo' or 'Learn More'"
+              >
+                <button
+                  class="wf-btn wf-btn-primary"
+                  type="button"
+                  data-anatomy="Primary CTA"
+                  data-category="Micro-Component"
+                  data-desc="The highest-emphasis interactive button representing the primary desired user action."
+                  data-tips="Use strong action verbs (e.g., Get Started, Try Free)|High contrast fill separates it from secondary actions"
+                >Primary CTA</button>
+                <button
+                  class="wf-btn wf-btn-secondary"
+                  type="button"
+                  data-anatomy="Secondary CTA"
+                  data-category="Micro-Component"
+                  data-desc="A lower-emphasis alternative action for visitors who need more information before committing."
+                  data-tips="Use outlined or subtle surface styling|Avoid competing visually with the Primary CTA"
+                >Secondary CTA</button>
+              </div>
+            </div>
+
+            <div
+              class="wf-media"
+              style="min-height: 250px;"
+              data-anatomy="Hero Media Placeholder"
+              data-category="Media"
+              data-desc="The primary visual anchor of the Hero Section—typically a product UI screenshot, illustration, or looping video."
+              data-tips="Maintain a consistent aspect ratio (16:9 or 4:3)|Should reinforce the headline rather than decorate it"
+            >
+              <span class="wf-media-tag">Hero Visual · 4:3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Hover Tooltip -->
+  <div id="anatomyTooltip" class="anatomy-tooltip" role="tooltip" aria-hidden="true">
+    <span id="tooltipName"></span>
+    <span id="tooltipCat" class="anatomy-tooltip-cat"></span>
+  </div>
+
+  <!-- Right-hand Inspector Drawer -->
+  <aside id="inspectorDrawer" class="inspector-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-title">Component Inspector</span>
+      <button id="drawerClose" class="drawer-close" type="button" aria-label="Close inspector">×</button>
+    </div>
+    <div class="drawer-body">
+      <span id="drawerCategory" class="drawer-badge">Category</span>
+      <h3 id="drawerName" class="drawer-name">Component Name</h3>
+      <div>
+        <div class="drawer-block-label">Purpose &amp; Definition</div>
+        <p id="drawerDesc" class="drawer-desc"></p>
+      </div>
+      <div>
+        <div class="drawer-block-label">Usage Guidelines</div>
+        <ul id="drawerTips" class="drawer-tips"></ul>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      const xrayToggle = document.getElementById('xrayToggle');
+      const tooltip = document.getElementById('anatomyTooltip');
+      const tooltipName = document.getElementById('tooltipName');
+      const tooltipCat = document.getElementById('tooltipCat');
+      const drawer = document.getElementById('inspectorDrawer');
+      const drawerClose = document.getElementById('drawerClose');
+      const drawerCategory = document.getElementById('drawerCategory');
+      const drawerName = document.getElementById('drawerName');
+      const drawerDesc = document.getElementById('drawerDesc');
+      const drawerTips = document.getElementById('drawerTips');
+
+      let selectedEl = null;
+
+      // X-Ray Mode Toggle
+      xrayToggle.addEventListener('click', () => {
+        const active = document.body.classList.toggle('xray-active');
+        xrayToggle.setAttribute('aria-pressed', String(active));
+        xrayToggle.innerHTML = `<span class="xray-dot"></span>X-Ray Mode: ${active ? 'ON' : 'OFF'}`;
+      });
+
+      // Hover Tooltip (innermost [data-anatomy])
+      document.addEventListener('mousemove', (e) => {
+        const target = e.target.closest('[data-anatomy]');
+        if (!target) {
+          tooltip.classList.remove('visible');
+          return;
+        }
+        tooltipName.textContent = target.dataset.anatomy;
+        tooltipCat.textContent = target.dataset.category || '';
+        tooltip.style.left = `${Math.min(e.clientX + 14, window.innerWidth - 220)}px`;
+        tooltip.style.top = `${Math.max(e.clientY - 34, 12)}px`;
+        tooltip.classList.add('visible');
+      });
+
+      // Click to Open Inspector Drawer
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-anatomy]');
+        if (!target) return;
+        e.stopPropagation();
+
+        if (selectedEl) selectedEl.classList.remove('is-selected');
+        selectedEl = target;
+        selectedEl.classList.add('is-selected');
+
+        drawerCategory.textContent = target.dataset.category || 'Component';
+        drawerName.textContent = target.dataset.anatomy;
+        drawerDesc.textContent = target.dataset.desc || '';
+
+        drawerTips.innerHTML = '';
+        const tips = (target.dataset.tips || '').split('|').filter(Boolean);
+        tips.forEach((tip) => {
+          const li = document.createElement('li');
+          li.textContent = tip;
+          drawerTips.appendChild(li);
+        });
+
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+      });
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        if (selectedEl) {
+          selectedEl.classList.remove('is-selected');
+          selectedEl = null;
+        }
+      }
+
+      drawerClose.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDrawer();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Architecture Wireframe — Layout &amp; Anatomy Reference</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/wireframe.css" />
+</head>
+<body>
+
+  <!-- ======================================================================
+       META INSPECTOR BAR (Controls Language, X-Ray & Variant Switchers)
+       ====================================================================== -->
+  <div class="meta-bar" role="region" aria-label="Wireframe Inspector Controls">
+    <div class="meta-bar-inner">
+      <div class="meta-bar-left">
+        <span class="meta-bar-badge" data-i18n="meta.brand">WIREFRAME ANATOMY</span>
+        <span class="meta-bar-hint" data-i18n="meta.hint">Hover to identify · Click to inspect · Press [X] for X-Ray</span>
+      </div>
+      <div class="meta-bar-controls">
+        <button id="openCmdBtn" class="meta-btn" type="button" title="Search patterns (⌘K)">
+          ⌘K <span data-i18n="meta.search">Search</span>
+        </button>
+        <div class="lang-switch vp-switch" role="group" aria-label="Viewport preview">
+          <button class="lang-btn is-active" type="button" data-vp-btn="desktop" aria-pressed="true" data-i18n="vp.desktop">Desktop</button>
+          <button class="lang-btn" type="button" data-vp-btn="tablet" aria-pressed="false" data-i18n="vp.tablet">Tablet</button>
+          <button class="lang-btn" type="button" data-vp-btn="mobile" aria-pressed="false" data-i18n="vp.mobile">Mobile</button>
+        </div>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button class="lang-btn is-active" type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" type="button" data-lang-btn="zh" aria-pressed="false">中文</button>
+        </div>
+        <button id="variantToggle" class="meta-btn" type="button" aria-pressed="true">
+          <span class="meta-dot"></span>Variant Switchers: ON
+        </button>
+        <button id="gridToggle" class="meta-btn" type="button" aria-pressed="false">
+          <span class="meta-dot"></span>Grid: OFF
+        </button>
+        <button id="xrayToggle" class="meta-btn" type="button" aria-pressed="false">
+          <span class="meta-dot"></span>X-Ray: OFF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Viewport Stage (Resizes smoothly for Desktop / Tablet / Mobile preview) -->
+  <div id="viewportStage" class="wf-viewport-stage">
+
+  <!-- 12-Column Responsive Grid Overlay -->
+  <div class="wf-grid-overlay" aria-hidden="true">
+    <div class="wf-grid-overlay-inner">
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+      <div class="wf-grid-overlay-col"></div><div class="wf-grid-overlay-col"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       ANNOUNCEMENT BAR & SITE NAVBAR (Shared Realistic Site Chrome)
+       ====================================================================== -->
+  <div id="siteAnnouncement" class="wf-announcement" data-anatomy="Announcement Bar" data-anatomy-level="section">
+    <span class="wf-badge" data-anatomy="Badge / Tag" data-i18n="announce.badge">NEW</span>
+    <span data-anatomy="Body Copy" data-i18n="announce.text">Announcement Bar — Single-line utility notice placed above the Navbar.</span>
+    <a href="#pricing" style="text-decoration: underline; font-weight: 500;" data-anatomy="Secondary CTA" data-i18n="announce.link">Learn more →</a>
+  </div>
+
+  <header id="siteNavbar" class="wf-navbar" data-anatomy="Navbar" data-anatomy-level="section">
+    <div class="wf-navbar-inner">
+      <a href="#" class="wf-brand" data-nav-target="landing" data-anatomy="Brand Logo">
+        <span class="wf-logo-mark">WF</span>
+        <span>Wireframe.arch</span>
+      </a>
+
+      <nav class="wf-navbar-desktop-nav" aria-label="Primary Navigation" data-anatomy="Nav Links">
+        <ul class="wf-nav-links">
+          <li><button class="wf-nav-link is-active" type="button" data-nav-target="landing" data-i18n="nav.landing">Landing</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="editorial" data-i18n="nav.editorial">Editorial</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="dashboard" data-i18n="nav.dashboard">Dashboard</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="ecommerce" data-i18n="nav.ecommerce">E-Commerce</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="auth" data-i18n="nav.auth">Auth &amp; 404</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="tokens" data-i18n="nav.tokens">Tokens</button></li>
+          <li><button class="wf-nav-link" type="button" data-nav-target="about" data-i18n="nav.about">About</button></li>
+        </ul>
+      </nav>
+
+      <div class="wf-nav-actions wf-navbar-desktop-actions">
+        <input id="navSearchBox" class="wf-input wf-nav-search" type="search" placeholder="Search patterns..." data-i18n-placeholder="nav.search" style="display: none;" data-anatomy="Search Input" />
+        <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-anatomy="Secondary CTA" data-i18n="nav.signin">Sign In</button>
+        <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-anatomy="Primary CTA" data-i18n="nav.cta">Get Started</button>
+      </div>
+
+      <button id="mobileMenuBtn" class="wf-mobile-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation menu" data-anatomy="Mobile Menu Trigger">☰</button>
+    </div>
+
+    <!-- Mega Menu Dropdown Panel (Shown when Navbar Variant = Mega Menu) -->
+    <div id="megaMenuPanel" class="wf-megamenu-panel" data-anatomy="Mega Menu" data-anatomy-level="section">
+      <div class="container">
+        <div class="megamenu-grid">
+          <div class="megamenu-col">
+            <h4 data-i18n="mm.col1">Page Templates</h4>
+            <ul class="megamenu-list">
+              <li><a href="#" data-nav-target="landing">Landing Page Flow</a></li>
+              <li><a href="#" data-nav-target="editorial">Editorial / Article</a></li>
+              <li><a href="#" data-nav-target="dashboard">Dashboard / App Shell</a></li>
+              <li><a href="#" data-nav-target="ecommerce">E-Commerce Product Page</a></li>
+              <li><a href="#" data-nav-target="auth">Auth &amp; 404 System Pages</a></li>
+            </ul>
+          </div>
+          <div class="megamenu-col">
+            <h4 data-i18n="mm.col2">Layout Patterns</h4>
+            <ul class="megamenu-list">
+              <li><a href="#" data-nav-target="landing">Hero &amp; Bento Grids</a></li>
+              <li><a href="#" data-nav-target="landing">Carousel, Masonry &amp; Marquee</a></li>
+              <li><a href="#" data-nav-target="landing">Tabs, Stepper &amp; Timeline</a></li>
+            </ul>
+          </div>
+          <div class="megamenu-col">
+            <h4 data-i18n="mm.col3">UI &amp; Forms</h4>
+            <ul class="megamenu-list">
+              <li><a href="#" data-nav-target="landing">Form Controls &amp; Validation</a></li>
+              <li><a href="#" data-nav-target="landing">Alerts, Skeleton &amp; Empty</a></li>
+              <li><a href="#" data-nav-target="tokens">Design Tokens Sheet</a></li>
+            </ul>
+          </div>
+          <div class="megamenu-feature">
+            <span class="wf-badge wf-badge--solid" style="align-self: flex-start;" data-anatomy="Badge / Tag">FEATURED</span>
+            <strong style="font-size: var(--wf-text-sm);">Mega Menu Promo Card</strong>
+            <p class="wf-caption">Multi-column navigation menus often pair link columns with a highlighted guide or release card.</p>
+            <div class="wf-media" style="min-height: 84px;" data-anatomy="Media Placeholder">
+              <span class="wf-media-label">Promo · 16:9</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobileNavDrawer" class="wf-mobile-drawer" aria-hidden="true">
+      <ul class="wf-nav-links">
+        <li><button class="wf-nav-link is-active" type="button" data-nav-target="landing" data-i18n="nav.landing">Landing Page</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="editorial" data-i18n="nav.editorial">Article / Content</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="dashboard" data-i18n="nav.dashboard">Dashboard / App</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="ecommerce" data-i18n="nav.ecommerce">E-Commerce</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="auth" data-i18n="nav.auth">Auth &amp; 404</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="tokens" data-i18n="nav.tokens">Design Tokens</button></li>
+        <li><button class="wf-nav-link" type="button" data-nav-target="about" data-i18n="nav.about">About</button></li>
+      </ul>
+      <div class="wf-mobile-drawer-actions">
+        <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-anatomy="Secondary CTA" data-i18n="nav.signin">Sign In</button>
+        <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-anatomy="Primary CTA" data-i18n="nav.cta">Get Started</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Inline Navbar Variant Switcher -->
+  <div class="navbar-variant-strip">
+    <div class="container">
+      <div class="variant-bar">
+        <span class="variant-label" data-i18n="variant.navbar">Navbar Variant</span>
+        <div class="variant-pills">
+          <button class="variant-pill is-active" type="button" data-variant-group="navbar" data-variant-value="standard" data-i18n="variant.nav.standard">Standard + Bar</button>
+          <button class="variant-pill" type="button" data-variant-group="navbar" data-variant-value="centered" data-i18n="variant.nav.centered">Centered Brand</button>
+          <button class="variant-pill" type="button" data-variant-group="navbar" data-variant-value="search" data-i18n="variant.nav.search">With Search</button>
+          <button class="variant-pill" type="button" data-variant-group="navbar" data-variant-value="megamenu" data-i18n="variant.nav.megamenu">Mega Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       PAGE 1: LANDING PAGE (Complete Website Flow + Inline Variant Switchers)
+       ====================================================================== -->
+  <main class="wf-page is-active" data-page="landing">
+
+    <!-- 1. HERO SECTION (3 Variants: Split / Centered Banner / Immersive Full-Bleed) -->
+    <section class="wf-section wf-section--hero">
+      <div class="container">
+        <div class="variant-bar">
+          <span class="variant-label" data-i18n="variant.hero">Hero Variant</span>
+          <div class="variant-pills">
+            <button class="variant-pill is-active" type="button" data-variant-group="hero" data-variant-value="split" data-i18n="variant.hero.split">Split Hero</button>
+            <button class="variant-pill" type="button" data-variant-group="hero" data-variant-value="centered" data-i18n="variant.hero.centered">Centered Banner</button>
+            <button class="variant-pill" type="button" data-variant-group="hero" data-variant-value="immersive" data-i18n="variant.hero.immersive">Immersive Full-Bleed</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variant A: Split Hero -->
+      <div data-variant-panel="hero" data-variant-key="split" class="is-active hero-panel-padded">
+        <div class="container">
+          <div class="hero-split" data-anatomy="Split Hero Section" data-anatomy-level="section">
+            <div class="hero-copy">
+              <span class="wf-badge" data-anatomy="Eyebrow / Kicker" data-i18n="hero.split.eyebrow">EYEBROW · LAYOUT ANATOMY</span>
+              <h1 class="wf-h1" data-anatomy="H1 Heading" data-i18n="hero.split.h1">H1 Main Headline Framing the Core Value</h1>
+              <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="hero.split.lead">
+                Lead / Subtitle copy sits directly beneath the H1 to clarify who the product serves and what outcome it delivers before asking for action.
+              </p>
+              <div class="wf-btn-group" data-anatomy="CTA Button Group">
+                <button class="wf-btn wf-btn--primary" type="button" data-anatomy="Primary CTA" data-i18n="btn.primary">Primary CTA</button>
+                <button class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA" data-i18n="btn.secondary">Secondary CTA</button>
+              </div>
+              <span class="wf-caption" data-anatomy="Caption / Meta" data-i18n="hero.split.caption">Caption / Meta — e.g. No credit card required · 14-day free trial</span>
+            </div>
+
+            <div class="wf-media" style="min-height: 360px;" data-anatomy="Media Placeholder">
+              <span class="wf-media-label" data-i18n="hero.split.media">Hero Media Placeholder · 4:3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variant B: Centered Banner Hero -->
+      <div data-variant-panel="hero" data-variant-key="centered" class="hero-panel-padded">
+        <div class="container">
+          <div class="hero-centered" data-anatomy="Centered Banner Hero" data-anatomy-level="section">
+            <span class="wf-badge" data-anatomy="Badge / Tag" data-i18n="hero.center.badge">RELEASE v2.0 · CENTERED HERO</span>
+            <h1 class="wf-h1" data-anatomy="H1 Heading" data-i18n="hero.center.h1">Centered Display Headline for Maximum Focus</h1>
+            <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="hero.center.lead">
+              A symmetrical above-the-fold composition that funnels visitor attention straight from headline to CTA, anchored by a wide showcase frame below.
+            </p>
+            <div class="wf-btn-group" data-anatomy="CTA Button Group">
+              <button class="wf-btn wf-btn--primary" type="button" data-anatomy="Primary CTA" data-i18n="hero.center.cta1">Start Free Trial</button>
+              <button class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA" data-i18n="hero.center.cta2">Watch Product Tour</button>
+            </div>
+            <div class="wf-media" data-anatomy="Media Placeholder">
+              <span class="wf-media-label" data-i18n="hero.center.media">Wide Product Canvas · 16:9</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variant C: True Edge-to-Edge Full-Bleed Immersive Hero (100% Page Width Backdrop) -->
+      <div data-variant-panel="hero" data-variant-key="immersive">
+        <div class="hero-immersive" data-anatomy="Immersive Full-Bleed Hero" data-anatomy-level="section">
+          <span class="hero-immersive-bg-tag" data-anatomy="Media Placeholder" data-i18n="hero.imm.bg">Full-Bleed Background Media · 100% Width</span>
+          <div class="container hero-immersive-inner">
+            <div class="hero-immersive-content">
+              <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="hero.imm.eyebrow">IMMERSIVE FULL-BLEED HERO</span>
+              <h1 class="wf-h1" data-anatomy="H1 Heading" data-i18n="hero.imm.h1">Edge-to-Edge Visual Storytelling Stage</h1>
+              <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="hero.imm.lead">
+                Full-bleed photography or ambient video spans 100% of the viewport width as a backdrop, with high-contrast scrim overlay keeping typography and CTAs crisp.
+              </p>
+              <div class="wf-btn-group" data-anatomy="CTA Button Group">
+                <button class="wf-btn wf-btn--inverse" type="button" data-anatomy="Primary CTA" data-i18n="hero.imm.cta1">Explore Collection</button>
+                <button class="wf-btn wf-btn--inverse-outline" type="button" data-anatomy="Secondary CTA" data-i18n="hero.imm.cta2">Play Film</button>
+              </div>
+              <span class="wf-caption" data-anatomy="Caption / Meta" data-i18n="hero.imm.caption">Full-bleed background scrim ensures WCAG contrast over imagery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SOCIAL PROOF / LOGO CLOUD -->
+    <section class="wf-section wf-section--subtle wf-section--compact" data-anatomy="Social Proof / Logo Cloud" data-anatomy-level="section">
+      <div class="container" style="text-align: center;">
+        <span class="wf-eyebrow" data-anatomy="Caption / Meta" data-i18n="social.title">TRUSTED BY TEAMS AT LEADING ORGANIZATIONS</span>
+        <div class="logo-cloud">
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 01</div>
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 02</div>
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 03</div>
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 04</div>
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 05</div>
+          <div class="logo-slot" data-anatomy="Media Placeholder">LOGO 06</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FEATURE SHOWCASE (3 Variants: Bento Grid / Zig-Zag / 3-Col Card Grid) -->
+    <section class="wf-section">
+      <div class="container">
+        <div class="variant-bar">
+          <span class="variant-label" data-i18n="variant.features">Feature Layout Variant</span>
+          <div class="variant-pills">
+            <button class="variant-pill is-active" type="button" data-variant-group="features" data-variant-value="bento" data-i18n="variant.feat.bento">Bento Grid</button>
+            <button class="variant-pill" type="button" data-variant-group="features" data-variant-value="zigzag" data-i18n="variant.feat.zigzag">Alternating Zig-Zag</button>
+            <button class="variant-pill" type="button" data-variant-group="features" data-variant-value="cards" data-i18n="variant.feat.cards">3-Column Card Grid</button>
+          </div>
+        </div>
+
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="feat.eyebrow">FEATURE ARCHITECTURE</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="feat.h2">H2 Section Heading for Core Capabilities</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="feat.lead">
+            Switch between Bento Grid, Alternating Zig-Zag, and uniform Card Grid above to compare how the same feature hierarchy adapts across patterns.
+          </p>
+        </div>
+
+        <!-- Variant A: Bento Grid -->
+        <div data-variant-panel="features" data-variant-key="bento" class="is-active">
+          <div class="bento-grid" data-anatomy="Bento Grid" data-anatomy-level="section">
+            <article class="bento-card bento-span-7">
+              <div>
+                <span class="wf-badge" data-anatomy="Badge / Tag">SPAN 7 · FLAGSHIP</span>
+                <h3 class="wf-h3" style="margin-top: 12px;" data-anatomy="H3 Subheading">H3 Flagship Bento Cell</h3>
+                <p class="wf-body" style="margin-top: 6px;" data-anatomy="Body Copy">
+                  Wider cells draw primary visual attention and pair concise copy with an embedded product preview or chart.
+                </p>
+              </div>
+              <div class="wf-media" style="min-height: 170px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Feature Preview · 16:9</span>
+              </div>
+            </article>
+
+            <article class="bento-card bento-span-5">
+              <div>
+                <div class="wf-icon-box">02</div>
+                <h3 class="wf-h3" style="margin-top: 12px;" data-anatomy="H3 Subheading">H3 Supporting Bento Cell</h3>
+                <p class="wf-body" style="margin-top: 6px;" data-anatomy="Body Copy">
+                  Compact asymmetric cells balance the row with secondary workflows or quick visual highlights.
+                </p>
+              </div>
+              <div class="wf-media" style="min-height: 150px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Compact Visual · 4:3</span>
+              </div>
+            </article>
+
+            <article class="bento-card bento-span-4">
+              <div class="wf-icon-box">03</div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">H3 Metric / Utility Cell</h3>
+              <p class="wf-body" data-anatomy="Body Copy">
+                Short, punchy description highlighting a single focused capability.
+              </p>
+            </article>
+
+            <article class="bento-card bento-span-8">
+              <div class="bento-inner-split">
+                <div>
+                  <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker">SPAN 8 · WIDE CELL</span>
+                  <h3 class="wf-h3" style="margin-top: 8px;" data-anatomy="H3 Subheading">H3 Horizontal Split Inside Bento</h3>
+                  <p class="wf-body" style="margin-top: 6px;" data-anatomy="Body Copy">
+                    Wide bottom cells anchor the grid and prevent ragged trailing whitespace.
+                  </p>
+                </div>
+                <div class="wf-media" style="min-height: 130px;" data-anatomy="Media Placeholder">
+                  <span class="wf-media-label">Inline Diagram</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Variant B: Alternating Zig-Zag Split -->
+        <div data-variant-panel="features" data-variant-key="zigzag">
+          <div class="zigzag-list" data-anatomy="Alternating Zig-Zag Split" data-anatomy-level="section">
+            <div class="zigzag-row">
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+                <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker">STEP 01 · TEXT LEFT</span>
+                <h3 class="wf-h2" style="font-size: var(--wf-text-h2);" data-anatomy="H3 Subheading">H3 Feature Story Row One</h3>
+                <p class="wf-body" data-anatomy="Body Copy">
+                  Alternating two-column splits guide the eye down the page in a Z-pattern, pairing detailed explanation with a dedicated illustration.
+                </p>
+                <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-anatomy="Secondary CTA">Explore Workflow →</button>
+              </div>
+              <div class="zigzag-media wf-media" style="min-height: 240px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Workflow Visual 01</span>
+              </div>
+            </div>
+
+            <div class="zigzag-row zigzag-row--reverse">
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+                <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker">STEP 02 · MEDIA LEFT</span>
+                <h3 class="wf-h2" style="font-size: var(--wf-text-h2);" data-anatomy="H3 Subheading">H3 Feature Story Row Two</h3>
+                <p class="wf-body" data-anatomy="Body Copy">
+                  Reversing the column order on the next row keeps visual rhythm dynamic while maintaining consistent padding and alignment.
+                </p>
+                <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-anatomy="Secondary CTA">View Documentation →</button>
+              </div>
+              <div class="zigzag-media wf-media" style="min-height: 240px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Workflow Visual 02</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Variant C: 3-Column Card Grid -->
+        <div data-variant-panel="features" data-variant-key="cards">
+          <div class="card-grid-3" data-anatomy="Card Grid" data-anatomy-level="section">
+            <article class="wf-card">
+              <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Card Media 01</span>
+              </div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">CATEGORY</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">H3 Card Title One</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Equal-weight cards work best when every item shares the same level of importance and structure.</p>
+            </article>
+
+            <article class="wf-card">
+              <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Card Media 02</span>
+              </div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">CATEGORY</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">H3 Card Title Two</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Keep body copy parallel in line count across cards so bottoms align cleanly in the grid.</p>
+            </article>
+
+            <article class="wf-card">
+              <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Card Media 03</span>
+              </div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">CATEGORY</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">H3 Card Title Three</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Commonly used for feature directories, blog post listings, and e-commerce product shelves.</p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3.5. TABS SECTION (Interactive Tabbed Content Switcher) -->
+    <section class="wf-section wf-section--subtle" data-anatomy="Tabs Section" data-anatomy-level="section">
+      <div class="container">
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="tabs.eyebrow">TABBED CONTENT</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="tabs.h2">Interactive Tabs &amp; View Switcher</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="tabs.lead">
+            Group closely related perspectives in a single compact footprint so visitors switch views without scrolling past redundant blocks.
+          </p>
+        </div>
+
+        <div class="wf-tabs-wrap">
+          <div class="wf-tab-list" role="tablist" aria-label="Wireframe feature tabs" data-anatomy="Tab List">
+            <button class="wf-tab-btn is-active" type="button" role="tab" aria-selected="true" data-tab-btn="tab-1" data-i18n="tabs.t1">01. Layout Grid</button>
+            <button class="wf-tab-btn" type="button" role="tab" aria-selected="false" data-tab-btn="tab-2" data-i18n="tabs.t2">02. Design Tokens</button>
+            <button class="wf-tab-btn" type="button" role="tab" aria-selected="false" data-tab-btn="tab-3" data-i18n="tabs.t3">03. Handoff Specs</button>
+          </div>
+
+          <div class="wf-tab-panel is-active" role="tabpanel" data-tab-panel="tab-1" data-anatomy="Tab Panel">
+            <div class="tab-panel-grid">
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+                <span class="wf-badge" data-anatomy="Badge / Tag">TAB PANEL 01</span>
+                <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tabs.p1.h3">12-Column Responsive Grid System</h3>
+                <p class="wf-body" data-anatomy="Body Copy" data-i18n="tabs.p1.body">
+                  Every section aligns to a shared container width and gutter scale, adapting predictably from desktop to tablet and mobile breakpoints.
+                </p>
+                <ul class="wf-checklist" data-anatomy="Body Copy">
+                  <li>Consistent 1140px max-width container</li>
+                  <li>Fluid 20px column gutters</li>
+                  <li>Asymmetric spans for Bento &amp; Split Heroes</li>
+                </ul>
+              </div>
+              <div class="wf-media" style="min-height: 240px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Tab 01 Visual · Grid Overlay</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-tab-panel" role="tabpanel" data-tab-panel="tab-2" data-anatomy="Tab Panel">
+            <div class="tab-panel-grid">
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+                <span class="wf-badge" data-anatomy="Badge / Tag">TAB PANEL 02</span>
+                <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tabs.p2.h3">Tokenized Surfaces, Strokes &amp; Type</h3>
+                <p class="wf-body" data-anatomy="Body Copy" data-i18n="tabs.p2.body">
+                  Centralizing colors, borders, spacing, and typography as CSS custom properties lets teams reskin wireframes into high-fidelity UI rapidly.
+                </p>
+                <ul class="wf-checklist" data-anatomy="Body Copy">
+                  <li>Neutral monochrome hierarchy</li>
+                  <li>Single accent reserved for inspection</li>
+                  <li>Zero-dependency CSS variables</li>
+                </ul>
+              </div>
+              <div class="wf-media" style="min-height: 240px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Tab 02 Visual · Token Matrix</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-tab-panel" role="tabpanel" data-tab-panel="tab-3" data-anatomy="Tab Panel">
+            <div class="tab-panel-grid">
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+                <span class="wf-badge" data-anatomy="Badge / Tag">TAB PANEL 03</span>
+                <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tabs.p3.h3">Shared Vocabulary for PM, Design &amp; Dev</h3>
+                <p class="wf-body" data-anatomy="Body Copy" data-i18n="tabs.p3.body">
+                  Standardized component naming eliminates ambiguity during wireframing, copywriting, and engineering implementation.
+                </p>
+                <ul class="wf-checklist" data-anatomy="Body Copy">
+                  <li>Hover-to-identify interactive anatomy</li>
+                  <li>X-Ray full-page structural overlay</li>
+                  <li>Bilingual EN / 中文 glossary drawer</li>
+                </ul>
+              </div>
+              <div class="wf-media" style="min-height: 240px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Tab 03 Visual · Spec Sheet</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. STATS / KPI BAR -->
+    <section class="wf-section wf-section--subtle wf-section--compact" data-anatomy="Stats / KPI Bar" data-anatomy-level="section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" data-anatomy="H1 Heading">99.9%</div>
+            <div class="stat-label" data-anatomy="Caption / Meta">Uptime SLA Metric</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" data-anatomy="H1 Heading">42k+</div>
+            <div class="stat-label" data-anatomy="Caption / Meta">Active Workspaces</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" data-anatomy="H1 Heading">3.4×</div>
+            <div class="stat-label" data-anatomy="Caption / Meta">Faster Delivery Velocity</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" data-anatomy="H1 Heading">120+</div>
+            <div class="stat-label" data-anatomy="Caption / Meta">Global Integrations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.5. PROCESS STEPPER & TIMELINE (2 Variants: Horizontal Stepper / Vertical Timeline) -->
+    <section class="wf-section">
+      <div class="container">
+        <div class="variant-bar">
+          <span class="variant-label" data-i18n="variant.timeline">Timeline Variant</span>
+          <div class="variant-pills">
+            <button class="variant-pill is-active" type="button" data-variant-group="timeline" data-variant-value="stepper" data-i18n="variant.tl.stepper">Horizontal Stepper</button>
+            <button class="variant-pill" type="button" data-variant-group="timeline" data-variant-value="vertical" data-i18n="variant.tl.vertical">Vertical Timeline</button>
+          </div>
+        </div>
+
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="tl.eyebrow">SEQUENTIAL FLOW</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="tl.h2">Process Stepper &amp; Vertical Timeline</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="tl.lead">
+            Communicate onboarding workflows, step-by-step instructions, or chronological milestones in a clear sequence.
+          </p>
+        </div>
+
+        <!-- Variant A: Horizontal 3-Step Process -->
+        <div data-variant-panel="timeline" data-variant-key="stepper" class="is-active">
+          <div class="stepper-grid" data-anatomy="Process Stepper" data-anatomy-level="section">
+            <article class="stepper-card">
+              <div class="step-badge" data-anatomy="Step Indicator">01</div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tl.s1.h3">Define Tokens &amp; Grid</h3>
+              <p class="wf-body" data-anatomy="Body Copy" data-i18n="tl.s1.body">Establish neutral surfaces, stroke weights, typography scale, and container widths before laying out sections.</p>
+            </article>
+            <article class="stepper-card">
+              <div class="step-badge" data-anatomy="Step Indicator">02</div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tl.s2.h3">Assemble Layout Patterns</h3>
+              <p class="wf-body" data-anatomy="Body Copy" data-i18n="tl.s2.body">Combine Hero, Bento, Tabs, Pricing, and Forms in realistic vertical rhythm to validate user flow.</p>
+            </article>
+            <article class="stepper-card">
+              <div class="step-badge" data-anatomy="Step Indicator">03</div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="tl.s3.h3">Verify Responsive States</h3>
+              <p class="wf-body" data-anatomy="Body Copy" data-i18n="tl.s3.body">Test breakpoints across desktop, tablet, and mobile to ensure navigation, tables, and forms adapt cleanly.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Variant B: Vertical Milestone Timeline -->
+        <div data-variant-panel="timeline" data-variant-key="vertical">
+          <div class="timeline-list" data-anatomy="Vertical Timeline" data-anatomy-level="section">
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow" data-anatomy="Caption / Meta">PHASE 01 · FOUNDATION</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Design Token Architecture</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Codified monochrome surfaces, borders, spacing scale, and single technical inspection accent.</p>
+            </article>
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow" data-anatomy="Caption / Meta">PHASE 02 · PATTERNS</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Interactive Layout &amp; Variant Library</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Shipped Landing Page and Editorial templates with inline variant switchers and X-Ray inspection.</p>
+            </article>
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow" data-anatomy="Caption / Meta">PHASE 03 · RESPONSIVE &amp; FORMS</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Multi-Device Preview &amp; Complete Controls</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Added Desktop/Tablet/Mobile viewport preview, Tabs, Comparison Matrix, and full form control anatomy.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PRICING TABLE -->
+    <section id="pricing" class="wf-section" data-anatomy="Pricing Table" data-anatomy-level="section">
+      <div class="container">
+        <div class="wf-section-header wf-section-header--center">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="pricing.eyebrow">CONVERSION PATTERN</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="pricing.h2">Pricing Table &amp; Tier Comparison</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="pricing.lead">
+            Side-by-side plan cards with an interactive billing cadence switch and a highlighted recommended tier.
+          </p>
+          <div class="billing-toggle" data-anatomy="Billing Toggle">
+            <button class="billing-btn is-active" type="button" data-billing="monthly" data-i18n="pricing.monthly">Monthly</button>
+            <button class="billing-btn" type="button" data-billing="annual" data-i18n="pricing.annual">Annual (Save 20%)</button>
+          </div>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Starter Tier</h3>
+              <p class="wf-caption" style="margin-top: 4px;" data-anatomy="Caption / Meta">For individuals &amp; prototypes</p>
+            </div>
+            <div class="pricing-price" data-price-monthly="$19" data-price-annual="$15">$19<span> / mo</span></div>
+            <ul class="pricing-features" data-anatomy="Body Copy">
+              <li>Up to 3 active projects</li>
+              <li>Core layout templates</li>
+              <li>Community support</li>
+            </ul>
+            <button class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA">Choose Starter</button>
+          </article>
+
+          <article class="pricing-card pricing-card--featured">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Pro Tier</h3>
+              <span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag">RECOMMENDED</span>
+            </div>
+            <div class="pricing-price" data-price-monthly="$49" data-price-annual="$39">$49<span> / mo</span></div>
+            <ul class="pricing-features" data-anatomy="Body Copy">
+              <li>Unlimited projects &amp; variants</li>
+              <li>Design token export</li>
+              <li>Team collaboration &amp; comments</li>
+              <li>Priority email support</li>
+            </ul>
+            <button class="wf-btn wf-btn--primary" type="button" data-anatomy="Primary CTA">Start Pro Trial</button>
+          </article>
+
+          <article class="pricing-card">
+            <div>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Enterprise</h3>
+              <p class="wf-caption" style="margin-top: 4px;" data-anatomy="Caption / Meta">For large design organizations</p>
+            </div>
+            <div class="pricing-price" data-price-monthly="$149" data-price-annual="$119">$149<span> / mo</span></div>
+            <ul class="pricing-features" data-anatomy="Body Copy">
+              <li>SSO &amp; role-based permissions</li>
+              <li>Dedicated design system audit</li>
+              <li>Custom SLA &amp; onboarding</li>
+            </ul>
+            <button class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA">Contact Sales</button>
+          </article>
+        </div>
+
+        <!-- 5.5. FEATURE COMPARISON MATRIX TABLE -->
+        <div class="matrix-wrap" data-anatomy="Comparison Matrix" data-anatomy-level="section">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--wf-space-4); flex-wrap: wrap; gap: 8px;">
+            <h3 class="wf-h3" data-anatomy="H3 Subheading" data-i18n="matrix.h3">Feature Comparison Matrix</h3>
+            <span class="wf-caption" data-anatomy="Caption / Meta" data-i18n="matrix.caption">Scrolls horizontally on mobile viewports</span>
+          </div>
+          <div class="table-scroll">
+            <table class="wf-matrix">
+              <thead>
+                <tr data-anatomy="Table Header">
+                  <th data-i18n="matrix.col.feature">Capability</th>
+                  <th>Starter</th>
+                  <th>Pro</th>
+                  <th>Enterprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="matrix-group-row">
+                  <td colspan="4" data-i18n="matrix.grp.core">Core Layout &amp; Tokens</td>
+                </tr>
+                <tr>
+                  <td>Active Wireframe Projects</td>
+                  <td>3</td>
+                  <td>Unlimited</td>
+                  <td>Unlimited</td>
+                </tr>
+                <tr>
+                  <td>Design Token CSS Export</td>
+                  <td><span class="matrix-dash">—</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>Responsive Viewport Preview</td>
+                  <td><span class="matrix-check">✓</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                </tr>
+                <tr class="matrix-group-row">
+                  <td colspan="4" data-i18n="matrix.grp.team">Governance &amp; Security</td>
+                </tr>
+                <tr>
+                  <td>Team Comments &amp; Handoff</td>
+                  <td><span class="matrix-dash">—</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                </tr>
+                <tr>
+                  <td>SSO / SAML &amp; Role Permissions</td>
+                  <td><span class="matrix-dash">—</span></td>
+                  <td><span class="matrix-dash">—</span></td>
+                  <td><span class="matrix-check">✓</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.8. VISUAL SHOWCASE (3 Variants: Carousel / Masonry Grid / Infinite Marquee) -->
+    <section class="wf-section">
+      <div class="container">
+        <div class="variant-bar">
+          <span class="variant-label" data-i18n="variant.gallery">Gallery Variant</span>
+          <div class="variant-pills">
+            <button class="variant-pill is-active" type="button" data-variant-group="gallery" data-variant-value="carousel" data-i18n="variant.gal.carousel">Carousel / Slider</button>
+            <button class="variant-pill" type="button" data-variant-group="gallery" data-variant-value="masonry" data-i18n="variant.gal.masonry">Masonry Grid</button>
+            <button class="variant-pill" type="button" data-variant-group="gallery" data-variant-value="marquee" data-i18n="variant.gal.marquee">Infinite Marquee</button>
+          </div>
+        </div>
+
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="gal.eyebrow">SHOWCASE &amp; GALLERY PATTERNS</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="gal.h2">Carousel, Masonry Grid &amp; Marquee</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="gal.lead">
+            Compare horizontal slide navigation, staggered uneven-height masonry columns, and continuous looping marquee motion.
+          </p>
+        </div>
+
+        <!-- Variant A: Carousel / Slider -->
+        <div data-variant-panel="gallery" data-variant-key="carousel" class="is-active">
+          <div class="wf-carousel" data-anatomy="Carousel / Slider" data-anatomy-level="section">
+            <div id="carouselTrack" class="carousel-track">
+              <div class="carousel-slide">
+                <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+                  <span class="wf-badge" data-anatomy="Badge / Tag">SLIDE 01 / 03</span>
+                  <h3 class="wf-h3" data-anatomy="H3 Subheading">Case Study Slide One</h3>
+                  <p class="wf-body" data-anatomy="Body Copy">Carousels let visitors step through featured stories or product screenshots one frame at a time without expanding page height.</p>
+                </div>
+                <div class="wf-media" style="min-height: 220px;" data-anatomy="Media Placeholder">
+                  <span class="wf-media-label">Slide 01 Visual · 16:9</span>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+                  <span class="wf-badge" data-anatomy="Badge / Tag">SLIDE 02 / 03</span>
+                  <h3 class="wf-h3" data-anatomy="H3 Subheading">Case Study Slide Two</h3>
+                  <p class="wf-body" data-anatomy="Body Copy">Always provide visible Previous/Next arrows alongside clickable pagination dots for predictable control.</p>
+                </div>
+                <div class="wf-media" style="min-height: 220px;" data-anatomy="Media Placeholder">
+                  <span class="wf-media-label">Slide 02 Visual · 16:9</span>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+                  <span class="wf-badge" data-anatomy="Badge / Tag">SLIDE 03 / 03</span>
+                  <h3 class="wf-h3" data-anatomy="H3 Subheading">Case Study Slide Three</h3>
+                  <p class="wf-body" data-anatomy="Body Copy">Avoid hiding critical conversion copy inside slides 2 or 3 where many visitors may never click.</p>
+                </div>
+                <div class="wf-media" style="min-height: 220px;" data-anatomy="Media Placeholder">
+                  <span class="wf-media-label">Slide 03 Visual · 16:9</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-controls">
+              <div class="carousel-dots" data-anatomy="Pagination Dots">
+                <button class="carousel-dot is-active" type="button" data-slide-to="0" aria-label="Slide 1"></button>
+                <button class="carousel-dot" type="button" data-slide-to="1" aria-label="Slide 2"></button>
+                <button class="carousel-dot" type="button" data-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="wf-btn-group">
+                <button id="carouselPrev" class="wf-btn wf-btn--secondary wf-btn--sm" type="button" aria-label="Previous slide">← Prev</button>
+                <button id="carouselNext" class="wf-btn wf-btn--secondary wf-btn--sm" type="button" aria-label="Next slide">Next →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Variant B: Masonry Grid -->
+        <div data-variant-panel="gallery" data-variant-key="masonry">
+          <div class="wf-masonry" data-anatomy="Masonry Grid" data-anatomy-level="section">
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 9 / 16; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Vertical Reel · 9:16</span></div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">REEL · 9:16</span>
+              <h3 class="wf-h3">Vertical Short-Form Story</h3>
+              <p class="wf-caption">Tall 9:16 mobile video or vertical poster frame that defines the staggered waterfall rhythm.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 16 / 9; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Landscape · 16:9</span></div>
+              <h3 class="wf-h3">Widescreen Hero Still</h3>
+              <p class="wf-caption">Short wide frame nestled naturally below taller vertical items.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 3 / 4; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Portrait · 3:4</span></div>
+              <h3 class="wf-h3">Editorial Portrait</h3>
+              <p class="wf-caption">Classic 3:4 magazine proportion for photography and lookbooks.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 1 / 1; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Square · 1:1</span></div>
+              <h3 class="wf-h3">Square Product Shot</h3>
+              <p class="wf-caption">Balances adjacent tall columns without leaving awkward vertical gaps.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 9 / 16; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Mobile Story · 9:16</span></div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">STORY · 9:16</span>
+              <h3 class="wf-h3">Full-Height Mobile Mockup</h3>
+              <p class="wf-caption">Showcases full-screen mobile UI flows or vertical campaign posters cleanly.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 16 / 10; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Compact · 16:10</span></div>
+              <h3 class="wf-h3">UI Component Snapshot</h3>
+              <p class="wf-caption">Collapses cleanly from 3 columns on desktop to 2 on tablet and 1 on mobile.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 2 / 3; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Poster · 2:3</span></div>
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">POSTER · 2:3</span>
+              <h3 class="wf-h3">Exhibition Print Poster</h3>
+              <p class="wf-caption">Standard 2:3 print and Pinterest pin ratio for tall artwork.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 4 / 5; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Feed Portrait · 4:5</span></div>
+              <h3 class="wf-h3">Social Feed Vertical</h3>
+              <p class="wf-caption">Slightly taller than square—ideal for editorial cards and portraits.</p>
+            </article>
+            <article class="masonry-item">
+              <div class="wf-media" style="aspect-ratio: 4 / 3; min-height: 0;" data-anatomy="Media Placeholder"><span class="wf-media-label">Classic · 4:3</span></div>
+              <h3 class="wf-h3">Architecture Sketch</h3>
+              <p class="wf-caption">Traditional 4:3 frame grounding the bottom of the third column.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Variant C: Infinite Marquee -->
+        <div data-variant-panel="gallery" data-variant-key="marquee">
+          <div class="wf-marquee" data-anatomy="Infinite Marquee" data-anatomy-level="section">
+            <div class="marquee-track">
+              <div class="marquee-card"><span class="wf-badge">ITEM 01</span><h3 class="wf-h3">Design Systems</h3><p class="wf-caption">Hover anywhere to pause scroll.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 02</span><h3 class="wf-h3">Grid Architecture</h3><p class="wf-caption">Continuous horizontal ticker.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 03</span><h3 class="wf-h3">Typography Scale</h3><p class="wf-caption">Great for logos or highlights.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 04</span><h3 class="wf-h3">Wireframe Tokens</h3><p class="wf-caption">Seamless infinite loop track.</p></div>
+              <!-- Duplicate set for seamless loop -->
+              <div class="marquee-card"><span class="wf-badge">ITEM 01</span><h3 class="wf-h3">Design Systems</h3><p class="wf-caption">Hover anywhere to pause scroll.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 02</span><h3 class="wf-h3">Grid Architecture</h3><p class="wf-caption">Continuous horizontal ticker.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 03</span><h3 class="wf-h3">Typography Scale</h3><p class="wf-caption">Great for logos or highlights.</p></div>
+              <div class="marquee-card"><span class="wf-badge">ITEM 04</span><h3 class="wf-h3">Wireframe Tokens</h3><p class="wf-caption">Seamless infinite loop track.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. TESTIMONIALS -->
+    <section class="wf-section wf-section--subtle" data-anatomy="Testimonials Section" data-anatomy-level="section">
+      <div class="container">
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="test.eyebrow">SOCIAL PROOF</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="test.h2">Customer Testimonials</h2>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="wf-card">
+            <p class="testimonial-quote" data-anatomy="Body Copy">
+              “Having a shared vocabulary for every section—from Eyebrow to Bento Grid—cut our design-to-engineering handoff friction in half.”
+            </p>
+            <div class="testimonial-author">
+              <div class="wf-avatar" data-anatomy="Avatar">AL</div>
+              <div>
+                <div style="font-size: var(--wf-text-sm); font-weight: 600;">Alex Lin</div>
+                <div class="wf-caption" data-anatomy="Caption / Meta">Product Designer · Studio North</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="wf-card">
+            <p class="testimonial-quote" data-anatomy="Body Copy">
+              “When stakeholders say ‘make the top part bigger’, we now open this reference and point directly to Split Hero vs. Immersive Hero.”
+            </p>
+            <div class="testimonial-author">
+              <div class="wf-avatar" data-anatomy="Avatar">MK</div>
+              <div>
+                <div style="font-size: var(--wf-text-sm); font-weight: 600;">Maya Kim</div>
+                <div class="wf-caption" data-anatomy="Caption / Meta">Lead PM · Horizon Labs</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="wf-card">
+            <p class="testimonial-quote" data-anatomy="Body Copy">
+              “Lo-fi neutral wireframes remove color bias so the team can evaluate pure information hierarchy and typography first.”
+            </p>
+            <div class="testimonial-author">
+              <div class="wf-avatar" data-anatomy="Avatar">JR</div>
+              <div>
+                <div style="font-size: var(--wf-text-sm); font-weight: 600;">Jordan Reed</div>
+                <div class="wf-caption" data-anatomy="Caption / Meta">Frontend Architect · Lattice</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FAQ ACCORDION -->
+    <section class="wf-section" data-anatomy="FAQ Accordion" data-anatomy-level="section">
+      <div class="container">
+        <div class="wf-section-header wf-section-header--center">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="faq.eyebrow">INTERACTIVE DISCLOSURE</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="faq.h2">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="accordion-list">
+          <div class="accordion-item is-open">
+            <button class="accordion-trigger" type="button">
+              <span>When should I use an Accordion instead of visible paragraphs?</span>
+              <span class="accordion-icon">−</span>
+            </button>
+            <div class="accordion-panel" data-anatomy="Body Copy">
+              Use an FAQ Accordion when visitors only need answers to 1 or 2 specific questions out of a larger set—keeping the overall page length concise.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button">
+              <span>What is the difference between an Eyebrow and a Badge?</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-panel" data-anatomy="Body Copy">
+              An Eyebrow (or Kicker) is plain uppercase/monospace text introducing a heading, while a Badge is enclosed in a pill/box container to highlight status or category metadata.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button">
+              <span>Can I inspect overlays like Modals and Toasts on this page?</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-panel" data-anatomy="Body Copy">
+              Yes! Scroll to the Overlay Triggers strip directly below the CTA Banner to launch live wireframe Modal and Toast examples.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7.5. COMPLETE FORM SECTION (Inputs, Select, Radio, Checkbox, Switch, Textarea, Validation) -->
+    <section class="wf-section wf-section--subtle" data-anatomy="Form Section" data-anatomy-level="section">
+      <div class="container">
+        <div class="form-split">
+          <div style="display: flex; flex-direction: column; gap: var(--wf-space-4);">
+            <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="form.eyebrow">COMPLETE FORM CONTROLS</span>
+            <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="form.h2">Structured Form &amp; Input Anatomy</h2>
+            <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="form.lead">
+              A complete wireframe form demonstrating text fields, dropdown selects, radio groups, checkboxes, toggle switches, textareas, and inline validation errors.
+            </p>
+            <div class="wf-callout" data-anatomy="Callout Box">
+              <span class="wf-eyebrow" data-i18n="form.tipTitle">FORM DESIGN NOTE</span>
+              <p class="wf-body" data-i18n="form.tipBody">
+                Always pair every input with a visible top-aligned label, clear placeholder text, and inline error feedback directly below invalid fields.
+              </p>
+            </div>
+          </div>
+
+          <form id="demoContactForm" class="wf-form-card" novalidate>
+            <div class="form-row-2">
+              <div class="wf-field" data-anatomy="Form Field / Input">
+                <label class="wf-label" for="wfName" data-i18n="form.nameLabel">Full Name *</label>
+                <input id="wfName" class="wf-input" type="text" placeholder="Alex Lin" />
+              </div>
+
+              <div class="wf-field" data-anatomy="Validation Error">
+                <label class="wf-label" for="wfEmailErr" data-i18n="form.emailLabel">Work Email (Error State Demo) *</label>
+                <input id="wfEmailErr" class="wf-input wf-input--error" type="email" value="invalid-email@" />
+                <span class="wf-error-msg" data-i18n="form.emailErr">✕ Please enter a valid email address.</span>
+              </div>
+            </div>
+
+            <div class="wf-field" data-anatomy="Select Dropdown">
+              <label class="wf-label" for="wfRole" data-i18n="form.selectLabel">Primary Role (Select Dropdown)</label>
+              <select id="wfRole" class="wf-select">
+                <option value="designer">Product Designer</option>
+                <option value="pm">Product Manager</option>
+                <option value="engineer">Frontend Engineer</option>
+                <option value="founder">Founder / Stakeholder</option>
+              </select>
+            </div>
+
+            <div class="wf-field" data-anatomy="Radio Group">
+              <span class="wf-label" data-i18n="form.radioLabel">Project Scope (Radio Button Group)</span>
+              <div class="wf-choice-group">
+                <label class="wf-choice"><input type="radio" name="wfScope" value="landing" checked /> Landing Page</label>
+                <label class="wf-choice"><input type="radio" name="wfScope" value="saas" /> SaaS Web App</label>
+                <label class="wf-choice"><input type="radio" name="wfScope" value="editorial" /> Editorial / Docs</label>
+              </div>
+            </div>
+
+            <div class="wf-field" data-anatomy="Checkbox">
+              <span class="wf-label" data-i18n="form.checkLabel">Included Deliverables (Checkbox Group)</span>
+              <div class="wf-choice-group">
+                <label class="wf-choice"><input type="checkbox" checked /> Design Tokens</label>
+                <label class="wf-choice"><input type="checkbox" checked /> Responsive Breakpoints</label>
+                <label class="wf-choice"><input type="checkbox" /> Prototype Handoff</label>
+              </div>
+            </div>
+
+            <div class="wf-switch-row" data-anatomy="Toggle Switch">
+              <div>
+                <div class="wf-label" data-i18n="form.switchLabel">Enable X-Ray Annotations by Default (Toggle Switch)</div>
+                <span class="wf-caption" data-i18n="form.switchHint">Binary on/off preference switch for immediate state changes</span>
+              </div>
+              <button id="demoFormSwitch" class="wf-switch" type="button" role="switch" aria-checked="true" aria-label="Toggle switch demo"></button>
+            </div>
+
+            <div class="wf-field" data-anatomy="Textarea">
+              <label class="wf-label" for="wfMessage" data-i18n="form.textareaLabel">Project Notes (Textarea)</label>
+              <textarea id="wfMessage" class="wf-textarea" placeholder="Describe layout requirements, target breakpoints, or key user flows..."></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: var(--wf-space-3); align-items: center;">
+              <button class="wf-btn wf-btn--ghost wf-btn--sm" type="reset" data-i18n="form.reset">Reset</button>
+              <button class="wf-btn wf-btn--primary" type="submit" data-anatomy="Primary CTA" data-i18n="form.submit">Submit Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7.8. UI FEEDBACK & STATES (Alert Banners, Skeleton Loader, Empty State) -->
+    <section class="wf-section">
+      <div class="container">
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="states.eyebrow">SYSTEM FEEDBACK &amp; STATES</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="states.h2">Alert Banners, Skeleton Loader &amp; Empty State</h2>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="states.lead">
+            Production interfaces also communicate system status, asynchronous loading, and zero-data states clearly.
+          </p>
+        </div>
+
+        <div class="states-grid">
+          <div class="alert-stack" data-anatomy="Alert Banner" data-anatomy-level="section">
+            <div class="wf-alert wf-alert--info">
+              <strong>Info Alert</strong>
+              <span class="wf-caption">Neutral informational banner for release notes or helpful context.</span>
+            </div>
+            <div class="wf-alert wf-alert--success">
+              <strong>Success Alert</strong>
+              <span class="wf-caption">Confirms a completed action such as saving tokens or publishing.</span>
+            </div>
+            <div class="wf-alert wf-alert--warning">
+              <strong>Warning Alert</strong>
+              <span class="wf-caption">Signals upcoming limits, unsaved edits, or non-fatal caveats.</span>
+            </div>
+            <div class="wf-alert wf-alert--error">
+              <strong>Error Alert</strong>
+              <span class="wf-caption">Highlights a blocking failure with a clear recovery instruction.</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--wf-space-5);">
+            <div class="wf-skeleton-card" data-anatomy="Skeleton Loader">
+              <span class="wf-eyebrow">SKELETON LOADER · ASYNC PLACEHOLDER</span>
+              <div class="skel-box"></div>
+              <div class="skel-bar" style="width: 65%;"></div>
+              <div class="skel-bar" style="width: 90%;"></div>
+              <div class="skel-bar" style="width: 45%;"></div>
+            </div>
+
+            <div class="wf-empty-state" data-anatomy="Empty State">
+              <div class="empty-icon">∅</div>
+              <h3 class="wf-h3" data-i18n="empty.h3">No Projects Created Yet</h3>
+              <p class="wf-caption" style="max-width: 300px;" data-i18n="empty.body">
+                Empty States guide first-time users or cleared search results toward a clear next action.
+              </p>
+              <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-anatomy="Primary CTA" data-i18n="empty.cta">+ Create First Wireframe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CTA BANNER & NEWSLETTER + OVERLAY TRIGGERS -->
+    <section class="wf-section wf-section--subtle">
+      <div class="container" style="display: flex; flex-direction: column; gap: var(--wf-space-8);">
+        <div class="cta-banner" data-anatomy="CTA Banner" data-anatomy-level="section">
+          <span class="wf-badge" data-anatomy="Badge / Tag" data-i18n="cta.badge">CLOSING CONVERSION BAND</span>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="cta.h2">Ready to Align Your Team’s Web Vocabulary?</h2>
+          <p class="wf-lead" style="max-width: 560px;" data-anatomy="Lead / Subtitle" data-i18n="cta.lead">
+            Pair a strong closing headline with an inline Newsletter Form Group or direct CTA button pair.
+          </p>
+          <form class="newsletter-form" onsubmit="event.preventDefault();" data-anatomy="Newsletter Form Group">
+            <input class="wf-input" type="email" placeholder="Enter your work email..." data-i18n-placeholder="cta.email" aria-label="Email address" />
+            <button class="wf-btn wf-btn--primary" type="submit" data-anatomy="Primary CTA" data-i18n="cta.submit">Subscribe</button>
+          </form>
+          <span class="wf-caption" data-anatomy="Caption / Meta" data-i18n="cta.caption">Helper Text — Weekly architecture notes. Unsubscribe anytime.</span>
+        </div>
+
+        <div class="overlay-strip" data-anatomy="Overlay Triggers" data-anatomy-level="section">
+          <div>
+            <div class="wf-eyebrow" data-i18n="overlay.eyebrow">TRANSIENT UI OVERLAYS</div>
+            <p class="wf-body" style="margin-top: 4px;" data-i18n="overlay.desc">Preview interactive wireframe layers that appear above the main document flow.</p>
+          </div>
+          <div class="wf-btn-group">
+            <button id="openModalBtn" class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-i18n="overlay.modalBtn">Open Modal Dialog</button>
+            <button id="openSlideoverBtn" class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-i18n="overlay.drawerBtn">Open Slide-over Drawer</button>
+            <button id="openToastBtn" class="wf-btn wf-btn--ghost wf-btn--sm" type="button" data-i18n="overlay.toastBtn">Trigger Toast Notification</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       PAGE 2: EDITORIAL / ARTICLE PAGE (Breadcrumbs, Prose Anatomy, Sticky TOC)
+       ====================================================================== -->
+  <main class="wf-page" data-page="editorial">
+    <section class="wf-section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-anatomy="Breadcrumb">
+          <span>Home</span>
+          <span>/</span>
+          <span class="breadcrumb-mid">Architecture Guides</span>
+          <span class="breadcrumb-ellipsis" aria-hidden="true">...</span>
+          <span>/</span>
+          <span class="breadcrumb-current">Typography &amp; Reading Hierarchy</span>
+        </nav>
+
+        <div class="article-layout">
+          <article class="article-prose">
+            <header style="display: flex; flex-direction: column; gap: var(--wf-space-4);" data-anatomy="Article Header" data-anatomy-level="section">
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag">EDITORIAL</span>
+                <span class="wf-badge" data-anatomy="Badge / Tag">TYPOGRAPHY</span>
+              </div>
+              <h1 class="wf-h1" data-anatomy="H1 Heading" data-i18n="art.h1">Structuring Long-Form Editorial &amp; Documentation Pages</h1>
+              <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="art.lead">
+                Article Deck / Subtitle — Long-form reading layouts rely on clear heading levels, comfortable line measure, pull quotes, callouts, and a persistent Table of Contents.
+              </p>
+              <div class="article-meta">
+                <div class="wf-avatar" data-anatomy="Avatar">ED</div>
+                <div>
+                  <div style="font-size: var(--wf-text-sm); font-weight: 600;">Editorial Team</div>
+                  <div class="wf-caption" data-anatomy="Caption / Meta">Published Nov 24, 2026 · 6 min read</div>
+                </div>
+              </div>
+            </header>
+
+            <figure style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="wf-media" style="min-height: 300px;" data-anatomy="Media Placeholder">
+                <span class="wf-media-label">Featured Editorial Image · 16:9</span>
+              </div>
+              <figcaption class="wf-caption" data-anatomy="Caption / Meta">
+                Fig 1.0 — Figcaption provides context, attribution, or diagram notes directly beneath embedded media.
+              </figcaption>
+            </figure>
+
+            <h2 id="art-sec-1" class="wf-h2" data-anatomy="H2 Section Heading">1. Establishing Scannable Hierarchy</h2>
+            <p class="wf-body" data-anatomy="Body Copy">
+              Body Copy forms the backbone of editorial interfaces. Keeping line lengths between 60 and 75 characters prevents eye fatigue while ensuring headings stand out immediately when readers skim down the page.
+            </p>
+
+            <blockquote class="wf-blockquote" data-anatomy="Blockquote / Pull Quote">
+              “Good wireframe typography communicates structure before a single brand color or photograph is introduced.”
+            </blockquote>
+
+            <h3 id="art-sec-2" class="wf-h3" data-anatomy="H3 Subheading">1.1 Using Callouts for High-Signal Notes</h3>
+            <p class="wf-body" data-anatomy="Body Copy">
+              When a definition, warning, or key takeaway deserves visual separation from standard prose, wrap it in a bordered Callout Box.
+            </p>
+
+            <div class="wf-callout" data-anatomy="Callout Box">
+              <span class="wf-eyebrow">NOTE · CALLOUT BOX</span>
+              <p class="wf-body">
+                Callouts break up dense documentation and anchor important rules so readers never miss critical constraints.
+              </p>
+            </div>
+
+            <nav class="pagination-bar" aria-label="Article Pagination" data-anatomy="Pagination / Next-Prev">
+              <a href="#" class="pagination-card" onclick="event.preventDefault();">
+                <span class="wf-caption">← Previous</span>
+                <strong style="font-size: var(--wf-text-sm);">Grid &amp; Container Systems</strong>
+              </a>
+              <a href="#" class="pagination-card" style="text-align: right;" onclick="event.preventDefault();">
+                <span class="wf-caption">Next →</span>
+                <strong style="font-size: var(--wf-text-sm);">Design Tokens Reference</strong>
+              </a>
+            </nav>
+          </article>
+
+          <aside class="article-sidebar">
+            <div class="toc-box" data-anatomy="Table of Contents (TOC)" data-anatomy-level="section">
+              <div class="wf-eyebrow">ON THIS PAGE</div>
+              <ul class="toc-list">
+                <li><a href="#art-sec-1">1. Scannable Hierarchy</a></li>
+                <li><a href="#art-sec-2" style="padding-left: 12px;">1.1 Callouts &amp; Notes</a></li>
+              </ul>
+            </div>
+
+            <div class="wf-card">
+              <span class="wf-badge" style="align-self: flex-start;" data-anatomy="Badge / Tag">SIDEBAR CARD</span>
+              <h3 class="wf-h3" data-anatomy="H3 Subheading">Inspect Design Tokens</h3>
+              <p class="wf-body" data-anatomy="Body Copy">Review the exact surface, stroke, and type tokens powering this entire wireframe.</p>
+              <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-nav-target="tokens">Open Tokens →</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 3: DASHBOARD / APP SHELL (Sidebar, Filter Bar, Chart, Data Table)
+       ====================================================================== -->
+  <main class="wf-page" data-page="dashboard">
+    <div class="app-shell" data-anatomy="App Shell" data-anatomy-level="section">
+      <!-- Left Sidebar Navigation -->
+      <aside class="app-sidebar" data-anatomy="Sidebar Navigation" data-anatomy-level="section">
+        <div>
+          <div class="sidebar-group-label" data-i18n="dash.side.workspace">Workspace</div>
+          <ul class="sidebar-nav">
+            <li><a href="#" class="sidebar-link is-active" onclick="event.preventDefault();"><span>Overview</span><span class="wf-caption">⌘1</span></a></li>
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>Analytics</span><span class="wf-caption">⌘2</span></a></li>
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>Projects</span><span class="wf-badge">12</span></a></li>
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>Team Members</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="sidebar-group-label" data-i18n="dash.side.system">System</div>
+          <ul class="sidebar-nav">
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>API Keys</span></a></li>
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>Billing &amp; Usage</span></a></li>
+            <li><a href="#" class="sidebar-link" onclick="event.preventDefault();"><span>Settings</span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main App Workspace -->
+      <div class="app-main">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="dash.eyebrow">SAAS APP SHELL · DASHBOARD</span>
+            <h1 class="wf-h2" style="margin-top: 4px;" data-anatomy="H1 Heading" data-i18n="dash.h1">Workspace Overview</h1>
+          </div>
+          <div class="wf-btn-group">
+            <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-anatomy="Secondary CTA">Export CSV</button>
+            <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-anatomy="Primary CTA">+ New Project</button>
+          </div>
+        </div>
+
+        <!-- KPI Summary Row -->
+        <div class="stats-grid" data-anatomy="Stats / KPI Bar">
+          <div class="stat-card">
+            <span class="wf-caption">Active Users</span>
+            <div class="stat-value" style="font-size: 1.6rem; margin-top: 4px;">18,420</div>
+            <span class="wf-badge" style="margin-top: 8px;">+14.2%</span>
+          </div>
+          <div class="stat-card">
+            <span class="wf-caption">Conversion Rate</span>
+            <div class="stat-value" style="font-size: 1.6rem; margin-top: 4px;">4.82%</div>
+            <span class="wf-badge" style="margin-top: 8px;">+0.6%</span>
+          </div>
+          <div class="stat-card">
+            <span class="wf-caption">Avg. Session</span>
+            <div class="stat-value" style="font-size: 1.6rem; margin-top: 4px;">3m 48s</div>
+            <span class="wf-badge" style="margin-top: 8px;">+18s</span>
+          </div>
+          <div class="stat-card">
+            <span class="wf-caption">Error Rate</span>
+            <div class="stat-value" style="font-size: 1.6rem; margin-top: 4px;">0.12%</div>
+            <span class="wf-badge" style="margin-top: 8px;">−0.04%</span>
+          </div>
+        </div>
+
+        <!-- Chart + Progress Widget -->
+        <div class="dash-charts-grid">
+          <div class="wf-chart-box" data-anatomy="Chart / Data Viz">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 class="wf-h3" data-i18n="dash.chartTitle">Weekly Activity Chart</h3>
+              <span class="wf-caption">Bar Chart Wireframe</span>
+            </div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height: 45%;"></div>
+              <div class="chart-bar" style="height: 68%;"></div>
+              <div class="chart-bar" style="height: 55%;"></div>
+              <div class="chart-bar chart-bar--highlight" style="height: 92%;"></div>
+              <div class="chart-bar" style="height: 76%;"></div>
+              <div class="chart-bar" style="height: 60%;"></div>
+              <div class="chart-bar" style="height: 82%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: var(--wf-font-mono); font-size: 10px; color: var(--wf-ink-tertiary);">
+              <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+            </div>
+          </div>
+
+          <div class="wf-chart-box" data-anatomy="Progress Bar">
+            <h3 class="wf-h3" data-i18n="dash.progTitle">Milestone Progress</h3>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--wf-text-xs); margin-bottom: 6px;">
+                  <span>Design Tokens</span><strong>100%</strong>
+                </div>
+                <div class="wf-progress-track"><div class="wf-progress-fill" style="width: 100%;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--wf-text-xs); margin-bottom: 6px;">
+                  <span>Responsive QA</span><strong>78%</strong>
+                </div>
+                <div class="wf-progress-track"><div class="wf-progress-fill" style="width: 78%;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--wf-text-xs); margin-bottom: 6px;">
+                  <span>Documentation</span><strong>45%</strong>
+                </div>
+                <div class="wf-progress-track"><div class="wf-progress-fill" style="width: 45%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Toolbar Bar -->
+        <div class="app-toolbar" data-anatomy="Filter Bar">
+          <div class="filter-pills">
+            <button class="filter-pill is-active" type="button" data-dash-filter="all">All (4)</button>
+            <button class="filter-pill" type="button" data-dash-filter="active">Active</button>
+            <button class="filter-pill" type="button" data-dash-filter="review">In Review</button>
+            <button class="filter-pill" type="button" data-dash-filter="draft">Draft</button>
+          </div>
+          <input class="wf-input app-toolbar-search" type="search" placeholder="Filter records..." data-anatomy="Search Input" />
+        </div>
+
+        <!-- Data Table with Fixed Centered Pagination -->
+        <div class="wf-table-card" data-anatomy="Data Table" data-anatomy-level="section">
+          <div class="table-scroll">
+            <table class="wf-matrix">
+              <thead>
+                <tr data-anatomy="Table Header">
+                  <th>Project Name</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody id="dashTableBody">
+                <tr data-row-status="active">
+                  <td><strong>Marketing Landing v2</strong></td>
+                  <td>Alex Lin</td>
+                  <td><span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag">Active</span></td>
+                  <td>2h ago</td>
+                </tr>
+                <tr data-row-status="review">
+                  <td><strong>Editorial Docs Shell</strong></td>
+                  <td>Maya Kim</td>
+                  <td><span class="wf-badge" data-anatomy="Badge / Tag">In Review</span></td>
+                  <td>5h ago</td>
+                </tr>
+                <tr data-row-status="active">
+                  <td><strong>Checkout &amp; Billing Flow</strong></td>
+                  <td>Jordan Reed</td>
+                  <td><span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag">Active</span></td>
+                  <td>1d ago</td>
+                </tr>
+                <tr data-row-status="draft">
+                  <td><strong>Mobile Onboarding Spec</strong></td>
+                  <td>Sam Chen</td>
+                  <td><span class="wf-badge" style="border-style: dashed;" data-anatomy="Badge / Tag">Draft</span></td>
+                  <td>3d ago</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer" data-anatomy="Table Pagination">
+            <span>Showing 1–4 of 24 records</span>
+            <div class="page-nums">
+              <button class="page-num" type="button">←</button>
+              <button class="page-num is-active" type="button">1</button>
+              <button class="page-num" type="button">2</button>
+              <button class="page-num" type="button">3</button>
+              <button class="page-num" type="button">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 4: E-COMMERCE PRODUCT DETAIL PAGE (PDP)
+       ====================================================================== -->
+  <main class="wf-page" data-page="ecommerce">
+    <section class="wf-section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-anatomy="Breadcrumb">
+          <span>Home</span>
+          <span>/</span>
+          <span class="breadcrumb-mid">Lighting &amp; Desk</span>
+          <span class="breadcrumb-ellipsis" aria-hidden="true">...</span>
+          <span>/</span>
+          <span class="breadcrumb-current">Architectural Task Lamp 01</span>
+        </nav>
+
+        <div class="pdp-grid">
+          <!-- Left: Product Gallery -->
+          <div class="pdp-gallery" data-anatomy="Product Gallery" data-anatomy-level="section">
+            <div class="wf-media" style="min-height: 400px;" data-anatomy="Media Placeholder">
+              <span id="pdpMainMediaLabel" class="wf-media-label">Main Product Angle 01 · 4:3</span>
+            </div>
+            <div class="pdp-thumbs" data-anatomy="Thumbnail Strip">
+              <button class="pdp-thumb is-active" type="button" data-pdp-thumb="Main Product Angle 01 · 4:3">01</button>
+              <button class="pdp-thumb" type="button" data-pdp-thumb="Detail Close-Up 02 · 4:3">02</button>
+              <button class="pdp-thumb" type="button" data-pdp-thumb="In-Context Desk View 03 · 4:3">03</button>
+              <button class="pdp-thumb" type="button" data-pdp-thumb="Dimensions Spec 04 · 4:3">04</button>
+            </div>
+          </div>
+
+          <!-- Right: Buy Box -->
+          <div class="pdp-buybox" data-anatomy="Buy Box" data-anatomy-level="section">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
+              <span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag">IN STOCK</span>
+              <span class="wf-caption" data-anatomy="Caption / Meta">SKU: WF-LAMP-01</span>
+            </div>
+
+            <div>
+              <h1 class="wf-h2" data-anatomy="H1 Heading" data-i18n="pdp.title">Architectural Task Lamp 01</h1>
+              <div class="pdp-rating" style="margin-top: 8px;" data-anatomy="Star Rating">
+                <span class="pdp-stars">★★★★☆</span>
+                <strong>4.8</strong>
+                <span class="wf-caption">(128 reviews)</span>
+              </div>
+            </div>
+
+            <div class="pdp-price-row" data-anatomy="Price Display">
+              <span class="pdp-price-current">$148.00</span>
+              <span class="pdp-price-old">$185.00</span>
+              <span class="wf-badge" data-anatomy="Badge / Tag">−20%</span>
+            </div>
+
+            <p class="wf-body" data-anatomy="Body Copy" data-i18n="pdp.desc">
+              A classic e-commerce Product Detail Page (PDP) Buy Box pairing pricing, variant swatches, quantity stepper, and immediate purchase actions above the fold.
+            </p>
+
+            <!-- Color Swatches -->
+            <div data-anatomy="Variant Swatches">
+              <div class="wf-label"><span data-i18n="pdp.colorLabel">Finish / Color Swatch:</span> <strong id="pdpColorName">Matte Black</strong></div>
+              <div class="swatch-row">
+                <button class="color-swatch is-active" type="button" style="background: #18181b;" data-color-swatch="Matte Black" aria-label="Matte Black"></button>
+                <button class="color-swatch" type="button" style="background: #71717a;" data-color-swatch="Warm Slate" aria-label="Warm Slate"></button>
+                <button class="color-swatch" type="button" style="background: #e4e4e7;" data-color-swatch="Brushed Aluminum" aria-label="Brushed Aluminum"></button>
+                <button class="color-swatch" type="button" style="background: #ffffff;" data-color-swatch="Chalk White" aria-label="Chalk White"></button>
+              </div>
+            </div>
+
+            <!-- Size / Edition Selector -->
+            <div data-anatomy="Variant Swatches">
+              <div class="wf-label" data-i18n="pdp.sizeLabel">Size / Edition</div>
+              <div class="swatch-row">
+                <button class="size-pill" type="button" data-size-pill>Compact</button>
+                <button class="size-pill is-active" type="button" data-size-pill>Standard</button>
+                <button class="size-pill" type="button" data-size-pill>Studio Pro</button>
+              </div>
+            </div>
+
+            <!-- Quantity Stepper + Add to Cart -->
+            <div class="pdp-atc-row">
+              <div class="qty-stepper" data-anatomy="Quantity Stepper">
+                <button id="qtyMinus" class="qty-btn" type="button" aria-label="Decrease quantity">−</button>
+                <span id="qtyValue" class="qty-val">1</span>
+                <button id="qtyPlus" class="qty-btn" type="button" aria-label="Increase quantity">+</button>
+              </div>
+              <button id="pdpAddBtn" class="wf-btn wf-btn--primary" style="flex: 1;" type="button" data-anatomy="Primary CTA" data-i18n="pdp.atc">Add to Cart — $148</button>
+              <button class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA" aria-label="Save item">♡</button>
+            </div>
+
+            <div class="pdp-trust-strip" data-anatomy="Caption / Meta">
+              <span>✓ Free Express Shipping</span>
+              <span>✓ 30-Day Returns</span>
+              <span>✓ 2-Year Warranty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rating Summary & Reviews -->
+    <section class="wf-section wf-section--subtle" data-anatomy="Rating Summary" data-anatomy-level="section">
+      <div class="container">
+        <h2 class="wf-h2" style="margin-bottom: var(--wf-space-6);" data-anatomy="H2 Section Heading" data-i18n="pdp.reviewsH2">Customer Ratings &amp; Reviews</h2>
+        <div class="reviews-grid">
+          <div class="wf-card">
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+              <span class="stat-value">4.8</span>
+              <span class="wf-caption">out of 5 (128 reviews)</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+              <div class="rating-bar-row"><span>5 ★</span><div class="wf-progress-track"><div class="wf-progress-fill" style="width: 82%;"></div></div><span>82%</span></div>
+              <div class="rating-bar-row"><span>4 ★</span><div class="wf-progress-track"><div class="wf-progress-fill" style="width: 12%;"></div></div><span>12%</span></div>
+              <div class="rating-bar-row"><span>3 ★</span><div class="wf-progress-track"><div class="wf-progress-fill" style="width: 4%;"></div></div><span>4%</span></div>
+              <div class="rating-bar-row"><span>2 ★</span><div class="wf-progress-track"><div class="wf-progress-fill" style="width: 1%;"></div></div><span>1%</span></div>
+              <div class="rating-bar-row"><span>1 ★</span><div class="wf-progress-track"><div class="wf-progress-fill" style="width: 1%;"></div></div><span>1%</span></div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--wf-space-4);">
+            <article class="wf-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <strong>★★★★★ · Verified Buyer</strong>
+                <span class="wf-caption">2 days ago</span>
+              </div>
+              <p class="wf-body" data-anatomy="Body Copy">Clean industrial proportions and zero glare on monitors. The dimmer dial feels solid and precise.</p>
+            </article>
+            <article class="wf-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <strong>★★★★☆ · Verified Buyer</strong>
+                <span class="wf-caption">1 week ago</span>
+              </div>
+              <p class="wf-body" data-anatomy="Body Copy">Packaging and build quality are top-tier. Wish the cable were slightly longer for standing desks.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products Shelf -->
+    <section class="wf-section" data-anatomy="Product Grid" data-anatomy-level="section">
+      <div class="container">
+        <h2 class="wf-h2" style="margin-bottom: var(--wf-space-6);" data-anatomy="H2 Section Heading" data-i18n="pdp.relatedH2">Related Products Shelf</h2>
+        <div class="related-grid">
+          <article class="wf-card">
+            <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder"><span class="wf-media-label">Product 01</span></div>
+            <h3 class="wf-h3">Desk Organizer Tray</h3>
+            <span class="wf-caption">$42.00</span>
+          </article>
+          <article class="wf-card">
+            <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder"><span class="wf-media-label">Product 02</span></div>
+            <h3 class="wf-h3">Aluminum Monitor Stand</h3>
+            <span class="wf-caption">$118.00</span>
+          </article>
+          <article class="wf-card">
+            <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder"><span class="wf-media-label">Product 03</span></div>
+            <h3 class="wf-h3">Wool Felt Desk Mat</h3>
+            <span class="wf-caption">$54.00</span>
+          </article>
+          <article class="wf-card">
+            <div class="wf-media" style="min-height: 140px;" data-anatomy="Media Placeholder"><span class="wf-media-label">Product 04</span></div>
+            <h3 class="wf-h3">USB-C Power Dock</h3>
+            <span class="wf-caption">$89.00</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Sticky Add-to-Cart Bar -->
+    <div class="sticky-atc-bar" data-anatomy="Sticky Add-to-Cart Bar">
+      <div>
+        <div style="font-size: var(--wf-text-xs); color: var(--wf-ink-tertiary);">Task Lamp 01</div>
+        <strong>$148.00</strong>
+      </div>
+      <button id="pdpStickyAddBtn" class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-i18n="pdp.atcShort">Add to Cart</button>
+    </div>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 5: AUTH & SYSTEM PAGES (Split-Screen Auth, OTP, 404 Error Page)
+       ====================================================================== -->
+  <main class="wf-page" data-page="auth">
+    <section class="wf-section">
+      <div class="container">
+        <div class="wf-section-header">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="auth.eyebrow">AUTHENTICATION &amp; ONBOARDING</span>
+          <h1 class="wf-h2" data-anatomy="H1 Heading" data-i18n="auth.h1">Split-Screen Auth &amp; Verification Patterns</h1>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="auth.lead">
+            Standard account flows pairing social sign-in, password strength validation, and 6-digit OTP verification boxes.
+          </p>
+        </div>
+
+        <div class="auth-split" data-anatomy="Split-Screen Auth" data-anatomy-level="section">
+          <form class="auth-form-pane" onsubmit="event.preventDefault();">
+            <div>
+              <h2 class="wf-h3" data-i18n="auth.cardTitle">Create Your Workspace Account</h2>
+              <p class="wf-caption" style="margin-top: 4px;" data-i18n="auth.cardSub">Try typing a password or 6-digit code below.</p>
+            </div>
+
+            <div class="social-btn-row" data-anatomy="Social Login Group">
+              <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button">G · Google</button>
+              <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button">GH · GitHub</button>
+            </div>
+
+            <div class="wf-divider-text" data-anatomy="Social Login Divider">or continue with email</div>
+
+            <div class="wf-field" data-anatomy="Form Field / Input">
+              <label class="wf-label" for="authEmail">Work Email</label>
+              <input id="authEmail" class="wf-input" type="email" placeholder="alex@studio.io" />
+            </div>
+
+            <div class="wf-field" data-anatomy="Password Strength Meter">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label class="wf-label" for="authPassword" data-i18n="auth.pwdLabel">Password (Strength Meter)</label>
+                <span id="pwdStrengthText" class="wf-caption" style="font-family: var(--wf-font-mono);">Strength: —</span>
+              </div>
+              <input id="authPassword" class="wf-input" type="password" placeholder="Type 8+ chars, numbers, symbols..." />
+              <div id="pwdMeterBars" class="pwd-meter-bars">
+                <div class="pwd-bar"></div>
+                <div class="pwd-bar"></div>
+                <div class="pwd-bar"></div>
+                <div class="pwd-bar"></div>
+              </div>
+            </div>
+
+            <div class="wf-field" data-anatomy="OTP Verification Input">
+              <label class="wf-label" data-i18n="auth.otpLabel">6-Digit OTP Verification Code</label>
+              <div class="otp-group">
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6" />
+              </div>
+            </div>
+
+            <button class="wf-btn wf-btn--primary" type="submit" data-anatomy="Primary CTA" data-i18n="auth.submit">Create Account</button>
+          </form>
+
+          <div class="auth-brand-pane">
+            <div class="wf-brand">
+              <span class="wf-logo-mark">WF</span>
+              <span>Wireframe.arch</span>
+            </div>
+            <div class="wf-media" style="min-height: 210px;" data-anatomy="Media Placeholder">
+              <span class="wf-media-label">Brand Artwork / Product Preview</span>
+            </div>
+            <blockquote class="wf-blockquote" style="margin: 0; font-size: var(--wf-text-body);" data-anatomy="Blockquote / Pull Quote">
+              “Split-screen authentication balances low-friction form focus on one side with brand trust on the other.”
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 404 Error Page Pattern -->
+    <section class="wf-section wf-section--subtle">
+      <div class="container">
+        <div class="error-page-box" data-anatomy="404 Error Page" data-anatomy-level="section">
+          <span class="wf-badge" data-anatomy="Badge / Tag">HTTP 404 · SYSTEM PAGE</span>
+          <div class="error-code">404</div>
+          <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="err.h2">Page Not Found</h2>
+          <p class="wf-lead" style="max-width: 480px;" data-anatomy="Lead / Subtitle" data-i18n="err.lead">
+            A helpful 404 Error Page explains what happened in plain language and gives visitors an immediate recovery path back to working routes.
+          </p>
+          <div class="wf-btn-group" style="margin-top: 8px;" data-anatomy="CTA Button Group">
+            <button class="wf-btn wf-btn--primary" type="button" data-nav-target="landing" data-anatomy="Primary CTA" data-i18n="err.home">← Back to Homepage</button>
+            <button id="errOpenSearchBtn" class="wf-btn wf-btn--secondary" type="button" data-anatomy="Secondary CTA" data-i18n="err.search">Search Patterns (⌘K)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 6: DESIGN TOKENS PAGE (Embedded Token Reference)
+       ====================================================================== -->
+  <main class="wf-page" data-page="tokens">
+    <section class="wf-section">
+      <div class="container" style="display: flex; flex-direction: column; gap: var(--wf-space-12);">
+        <div class="wf-section-header" style="margin-bottom: 0;">
+          <span class="wf-eyebrow" data-i18n="tok.eyebrow">DESIGN SYSTEM · css/tokens.css</span>
+          <h1 class="wf-h1" data-i18n="tok.h1">Lo-Fi Neutral Wireframe Tokens</h1>
+          <p class="wf-lead" data-i18n="tok.lead">
+            Every section and component across this site inherits from these monochrome neutral surfaces, crisp strokes, and single technical blue inspection accent.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="wf-h2" style="margin-bottom: var(--wf-space-5);">01. Surfaces, Inks &amp; Accent</h2>
+          <div class="swatch-grid">
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-bg-canvas);"></div>
+              <div class="swatch-meta"><strong>--wf-bg-canvas</strong><br />#FFFFFF</div>
+            </div>
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-bg-subtle);"></div>
+              <div class="swatch-meta"><strong>--wf-bg-subtle</strong><br />#F7F7F8</div>
+            </div>
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-bg-surface);"></div>
+              <div class="swatch-meta"><strong>--wf-bg-surface</strong><br />#EFEFF1</div>
+            </div>
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-border-default);"></div>
+              <div class="swatch-meta"><strong>--wf-border-default</strong><br />#C4C4CC</div>
+            </div>
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-ink-primary);"></div>
+              <div class="swatch-meta"><strong>--wf-ink-primary</strong><br />#111113</div>
+            </div>
+            <div class="swatch-card">
+              <div class="swatch-chip" style="background: var(--wf-accent);"></div>
+              <div class="swatch-meta"><strong>--wf-accent</strong><br />#2563EB (Inspector)</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="wf-h2" style="margin-bottom: var(--wf-space-5);">02. Typography Scale</h2>
+          <div class="type-table">
+            <div class="type-row">
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">--wf-text-display</span>
+              <span class="wf-h1" style="font-size: 2rem;">Display Heading</span>
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">36–52px / 700</span>
+            </div>
+            <div class="type-row">
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">--wf-text-h1</span>
+              <span class="wf-h2">H2 Section Heading</span>
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">34px / 700</span>
+            </div>
+            <div class="type-row">
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">--wf-text-h3</span>
+              <span class="wf-h3">H3 Card Subheading</span>
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">18px / 600</span>
+            </div>
+            <div class="type-row">
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">--wf-text-body</span>
+              <span class="wf-body">Body Copy — Standard paragraph text for cards and articles.</span>
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">15px / 400</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="wf-h2" style="margin-bottom: var(--wf-space-5);">03. 12-Column Grid System</h2>
+          <div class="grid-demo">
+            <div class="grid-col">1</div><div class="grid-col">2</div><div class="grid-col">3</div>
+            <div class="grid-col">4</div><div class="grid-col">5</div><div class="grid-col">6</div>
+            <div class="grid-col">7</div><div class="grid-col">8</div><div class="grid-col">9</div>
+            <div class="grid-col">10</div><div class="grid-col">11</div><div class="grid-col">12</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       PAGE 7: ABOUT, CHANGELOG, AUTHOR & 小禮網站
+       ====================================================================== -->
+  <main class="wf-page" data-page="about">
+    <section class="wf-section">
+      <div class="container" style="display: flex; flex-direction: column; gap: var(--wf-space-12);">
+        <div class="wf-section-header" style="margin-bottom: 0;">
+          <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="about.eyebrow">WHY WE BUILT THIS · DEVELOPMENT LOG</span>
+          <h1 class="wf-h1" data-anatomy="H1 Heading" data-i18n="about.h1">Development Log</h1>
+          <p class="wf-lead" data-anatomy="Lead / Subtitle" data-i18n="about.lead">
+            Born during the planning and creation of XiaoLi — we built this lo-fi interactive wireframe reference so designers, PMs, engineers, and clients can explore real layout patterns and speak the exact same web vocabulary.
+          </p>
+        </div>
+
+        <!-- Left: Author Info | Right: About 小禮 Website -->
+        <div class="states-grid">
+          <article class="wf-card" data-anatomy="Card Grid">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="wf-avatar" style="width: 52px; height: 52px; font-size: 14px; font-weight: 700;" data-anatomy="Avatar">VK</div>
+              <div>
+                <span class="wf-badge" data-anatomy="Badge / Tag" data-i18n="about.authorBadge">AUTHOR</span>
+                <h2 class="wf-h3" style="margin-top: 4px;" data-i18n="about.authorName">VK（作者資訊）</h2>
+              </div>
+            </div>
+            <p class="wf-body" data-anatomy="Body Copy" data-i18n="about.authorBio">
+              Founder &amp; creator behind this project. Passionate about turning abstract web architecture concepts into intuitive, hands-on visual tools for everyday communication.
+            </p>
+            <div class="wf-btn-group" style="margin-top: auto; padding-top: 8px;">
+              <span class="wf-caption" data-i18n="about.authorHint">Provide your title, bio, or links anytime to customize this card.</span>
+            </div>
+          </article>
+
+          <article class="wf-card" data-anatomy="Card Grid">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+              <span class="wf-badge wf-badge--solid" data-anatomy="Badge / Tag" data-i18n="about.giftBadge">XIAOLI SITE</span>
+              <span class="wf-caption" style="font-family: var(--wf-font-mono);">WEBSITE</span>
+            </div>
+            <h2 class="wf-h3" data-i18n="about.giftTitle">關於「小禮」網站</h2>
+            <p class="wf-body" data-anatomy="Body Copy" data-i18n="about.giftDesc">
+              XiaoLi is the origin story behind this wireframe toolkit. While crafting XiaoLi’s web experience, we distilled every recurring layout pattern—from Hero sections to E-Commerce Buy Boxes—into this open reference.
+            </p>
+            <div class="wf-btn-group" style="margin-top: auto; padding-top: 8px;">
+              <a id="xiaoliSiteLink" href="#" class="wf-btn wf-btn--primary wf-btn--sm" onclick="event.preventDefault();" data-anatomy="Primary CTA" data-i18n="about.giftCta">Visit 小禮網站 →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Complete Development Changelog Timeline -->
+        <div>
+          <div class="wf-section-header" style="margin-bottom: var(--wf-space-6);">
+            <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker" data-i18n="about.logEyebrow">DEVELOPMENT LOG · 2026-11-24</span>
+            <h2 class="wf-h2" data-anatomy="H2 Section Heading" data-i18n="about.logH2">Build Milestones &amp; Iterations</h2>
+          </div>
+
+          <div class="timeline-list" style="max-width: 860px;" data-anatomy="Vertical Timeline" data-anatomy-level="section">
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow">v0.1 · DESIGN TOKENS FOUNDATION</span>
+              <h3 class="wf-h3" data-i18n="log.v1.h3">Lo-Fi Neutral Wireframe Token System</h3>
+              <p class="wf-body" data-i18n="log.v1.body">Created css/tokens.css and standalone tokens-preview.html with monochrome surfaces, crisp border strokes, hatched media placeholders, 12-column grid, and a single technical blue accent (#2563EB) reserved for inspection.</p>
+            </article>
+
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow">v0.2 · CORE ARCHITECTURE &amp; HYBRID INSPECTOR</span>
+              <h3 class="wf-h3" data-i18n="log.v2.h3">Multi-Page Experience + Inline Variant Switchers</h3>
+              <p class="wf-body" data-i18n="log.v2.body">Built realistic Landing Page, Editorial Article, and Design Tokens pages with Navbar variants, Hero variants, Feature variants (Bento / Zig-Zag / Card Grid), Hover tooltips, X-Ray mode ([X]), and Click Component Inspector.</p>
+            </article>
+
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow">v0.3 · BILINGUAL &amp; RESPONSIVE ENGINE</span>
+              <h3 class="wf-h3" data-i18n="log.v3.h3">EN / 中文 Toggle, Full-Bleed Hero &amp; Device Simulator</h3>
+              <p class="wf-body" data-i18n="log.v3.body">Added live EN / 中文 bilingual switching across UI, X-Ray badges, and glossary; upgraded Immersive Hero to true 100% full-bleed width; added Desktop / Tablet (768px) / Mobile (390px) responsive viewport preview with Container Queries and Mobile Hamburger Drawer.</p>
+            </article>
+
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow">v0.4 · COMPLETE PATTERNS &amp; INDUSTRY PAGES</span>
+              <h3 class="wf-h3" data-i18n="log.v4.h3">Tabs, Timeline, Matrix, Forms, Gallery, Dashboard &amp; E-Commerce</h3>
+              <p class="wf-body" data-i18n="log.v4.body">Expanded with Interactive Tabs, Stepper/Timeline, Comparison Matrix, full Form Controls &amp; live validation, Mega Menu, Carousel, 9:16 Vertical Masonry Grid, Infinite Marquee, Alerts/Skeleton/Empty State, Slide-over Drawer, Dashboard App Shell, and E-Commerce PDP.</p>
+            </article>
+
+            <article class="timeline-item" data-anatomy="Timeline Item">
+              <span class="timeline-dot"></span>
+              <span class="wf-eyebrow">v1.0 · PRO TOOLKIT, AUTH &amp; FAVICON</span>
+              <h3 class="wf-h3" data-i18n="log.v5.h3">⌘K Search, 12-Col Grid [G], Deep Linking, Auth/404 &amp; About</h3>
+              <p class="wf-body" data-i18n="log.v5.body">Added responsive 12/8/4-column Grid Overlay ([G]), Inspector HTML tag + live px size + Copy Spec, Deep-Link URL sharing, ⌘K Command Palette with auto-jump to hidden variants, Auth &amp; 404 system page, custom WF SVG favicon, and this Development Log page.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       PERSISTENT MULTI-COLUMN FOOTER
+       ====================================================================== -->
+  <footer class="wf-footer" data-anatomy="Footer" data-anatomy-level="section">
+    <div class="container">
+      <div class="footer-grid">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="wf-brand" data-anatomy="Brand Logo">
+            <span class="wf-logo-mark">WF</span>
+            <span>Wireframe.arch</span>
+          </div>
+          <p class="wf-body" style="max-width: 280px;" data-anatomy="Body Copy">
+            An interactive lo-fi wireframe reference cataloging standard web layouts, typography levels, and UI components.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Patterns</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-nav-target="landing">Hero Sections</a></li>
+            <li><a href="#" data-nav-target="landing">Bento &amp; Card Grids</a></li>
+            <li><a href="#" data-nav-target="landing">Pricing &amp; FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-nav-target="landing">Landing Page</a></li>
+            <li><a href="#" data-nav-target="editorial">Editorial / Article</a></li>
+            <li><a href="#" data-nav-target="dashboard">Dashboard / App</a></li>
+            <li><a href="#" data-nav-target="ecommerce">E-Commerce</a></li>
+            <li><a href="#" data-nav-target="auth">Auth &amp; 404</a></li>
+            <li><a href="#" data-nav-target="tokens">Design Tokens</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="tokens-preview.html">Standalone Token Sheet</a></li>
+            <li><a href="#" id="openGlossaryLink">Anatomy Glossary (⌘K)</a></li>
+            <li><a href="#" data-nav-target="about">About &amp; Changelog</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom" data-anatomy="Caption / Meta">
+        <span>© 2026 Wireframe.arch — Sub-footer Copyright Bar</span>
+        <span>Privacy · Terms · Status</span>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- /#viewportStage -->
+
+  <!-- ======================================================================
+       LIVE OVERLAY DEMOS (Modal Dialog & Toast Notification)
+       ====================================================================== -->
+  <div id="demoModalBackdrop" class="wf-modal-backdrop" role="dialog" aria-modal="true" aria-label="Wireframe Modal Dialog">
+    <div class="wf-modal" data-anatomy="Modal Dialog">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker">MODAL DIALOG</span>
+        <button class="drawer-close" type="button" data-close-modal aria-label="Close modal">×</button>
+      </div>
+      <h3 class="wf-h3" data-anatomy="H3 Subheading">Confirm Action in Modal Dialog</h3>
+      <p class="wf-body" data-anatomy="Body Copy">
+        A Modal Dialog sits over a dimmed backdrop to focus user attention on a single decision or form without leaving the current page.
+      </p>
+      <div class="wf-btn-group" style="justify-content: flex-end; margin-top: 8px;">
+        <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-close-modal>Cancel</button>
+        <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-close-modal data-anatomy="Primary CTA">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="demoSlideoverBackdrop" class="wf-slideover-backdrop" role="dialog" aria-modal="true" aria-label="Slide-over Drawer Demo">
+    <div class="wf-slideover" data-anatomy="Slide-over Drawer">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span class="wf-eyebrow" data-anatomy="Eyebrow / Kicker">SLIDE-OVER DRAWER</span>
+        <button class="drawer-close" type="button" data-close-slideover aria-label="Close drawer">×</button>
+      </div>
+      <h3 class="wf-h3" data-anatomy="H3 Subheading">Side Drawer / Sheet Panel</h3>
+      <p class="wf-body" data-anatomy="Body Copy">
+        A Slide-over Drawer enters from the screen edge to house filters, shopping carts, or secondary details while keeping the underlying page context visible.
+      </p>
+      <div class="wf-media" style="min-height: 150px;" data-anatomy="Media Placeholder">
+        <span class="wf-media-label">Drawer Content Slot</span>
+      </div>
+      <div class="wf-btn-group" style="margin-top: auto;">
+        <button class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-close-slideover>Apply &amp; Close</button>
+        <button class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-close-slideover>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="demoToast" class="wf-toast" role="status" data-anatomy="Toast Notification">
+    <span class="wf-badge wf-badge--solid" style="border-color: #3f3f46;">TOAST</span>
+    <span>Non-blocking feedback notification (auto-dismisses).</span>
+  </div>
+
+  <!-- ======================================================================
+       FLOATING HOVER TOOLTIP & RIGHT-HAND INSPECTOR DRAWER
+       ====================================================================== -->
+  <div id="anatomyTooltip" class="anatomy-tooltip" role="tooltip" aria-hidden="true">
+    <span id="tooltipName"></span>
+    <span id="tooltipCat" class="anatomy-tooltip-cat"></span>
+  </div>
+
+  <aside id="inspectorDrawer" class="inspector-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="drawer-title" data-i18n="drawer.title">Component Inspector</span>
+      <button id="drawerClose" class="drawer-close" type="button" aria-label="Close inspector">×</button>
+    </div>
+    <div class="drawer-body">
+      <span id="drawerCategory" class="drawer-badge">Category</span>
+      <h3 id="drawerName" class="drawer-name">Component Name</h3>
+      <div class="drawer-spec-row">
+        <div class="drawer-spec-chip"><span>HTML</span><strong id="drawerTag">&lt;div&gt;</strong></div>
+        <div class="drawer-spec-chip"><span>SIZE</span><strong id="drawerDims">0 × 0 px</strong></div>
+      </div>
+      <div>
+        <div class="drawer-block-label" data-i18n="drawer.defLabel">Definition &amp; Role</div>
+        <p id="drawerDesc" class="drawer-desc"></p>
+      </div>
+      <div>
+        <div class="drawer-block-label" data-i18n="drawer.tipsLabel">Usage Guidelines</div>
+        <ul id="drawerTips" class="drawer-tips"></ul>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto;">
+        <button id="drawerCopyBtn" class="wf-btn wf-btn--primary wf-btn--sm" type="button" data-i18n="drawer.copy">Copy Spec to Clipboard</button>
+        <button id="drawerShareBtn" class="wf-btn wf-btn--secondary wf-btn--sm" type="button" data-i18n="drawer.share">Copy Shareable Link</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       COMMAND PALETTE (⌘K) & ANATOMY GLOSSARY MODAL
+       ====================================================================== -->
+  <div id="cmdBackdrop" class="cmd-backdrop" role="dialog" aria-modal="true" aria-label="Search Web Architecture Patterns">
+    <div class="cmd-dialog">
+      <div class="cmd-header">
+        <span style="font-family: var(--wf-font-mono); font-size: 13px; color: var(--wf-ink-tertiary);">⌘K</span>
+        <input id="cmdInput" class="cmd-input" type="search" placeholder="Search 70+ patterns in English or 中文 (e.g. Masonry, 瀑布流, Buy Box, OTP)..." data-i18n-placeholder="cmd.placeholder" autocomplete="off" />
+        <span class="cmd-kbd">ESC</span>
+      </div>
+      <div id="cmdFilters" class="cmd-filters">
+        <button class="filter-pill is-active" type="button" data-cmd-cat="all" data-i18n="cmd.cat.all">All</button>
+        <button class="filter-pill" type="button" data-cmd-cat="nav" data-i18n="cmd.cat.nav">Navigation</button>
+        <button class="filter-pill" type="button" data-cmd-cat="layout" data-i18n="cmd.cat.layout">Layouts &amp; Hero</button>
+        <button class="filter-pill" type="button" data-cmd-cat="type" data-i18n="cmd.cat.type">Typography</button>
+        <button class="filter-pill" type="button" data-cmd-cat="form" data-i18n="cmd.cat.form">Forms &amp; Auth</button>
+        <button class="filter-pill" type="button" data-cmd-cat="ecom" data-i18n="cmd.cat.ecom">E-Commerce</button>
+        <button class="filter-pill" type="button" data-cmd-cat="data" data-i18n="cmd.cat.data">Dashboard &amp; States</button>
+      </div>
+      <div id="cmdList" class="cmd-list"></div>
+    </div>
+  </div>
+
+  <script src="js/anatomy.js"></script>
+</body>
+</html>
