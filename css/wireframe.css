@@ -2878,8 +2878,13 @@ body.xray-active [data-anatomy] {
 body.xray-active [data-anatomy]::before {
   content: attr(data-anatomy-label);
   position: absolute;
+  inset: auto;
   top: -10px;
   left: 4px;
+  right: auto;
+  bottom: auto;
+  width: auto;
+  height: auto;
   z-index: var(--wf-z-xray);
   padding: 1px 6px;
   border-radius: 3px;
@@ -2891,6 +2896,11 @@ body.xray-active [data-anatomy]::before {
   line-height: 1.4;
   white-space: nowrap;
   pointer-events: none;
+}
+
+body.xray-active .wf-media[data-anatomy]::before {
+  top: 6px;
+  left: 6px;
 }
 
 body.xray-active [data-anatomy-level="section"]::before {

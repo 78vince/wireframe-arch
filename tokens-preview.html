@@ -548,8 +548,13 @@
     body.xray-active [data-anatomy]::before {
       content: attr(data-anatomy);
       position: absolute;
+      inset: auto;
       top: -11px;
       left: 4px;
+      right: auto;
+      bottom: auto;
+      width: auto;
+      height: auto;
       z-index: var(--wf-z-xray);
       padding: 1px 6px;
       border-radius: 3px;
@@ -562,6 +567,11 @@
       letter-spacing: 0.02em;
       white-space: nowrap;
       pointer-events: none;
+    }
+
+    body.xray-active .wf-media[data-anatomy]::before {
+      top: 6px;
+      left: 6px;
     }
 
     /* Selected Element Highlight */
